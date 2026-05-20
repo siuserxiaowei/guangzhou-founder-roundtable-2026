@@ -1,0 +1,252 @@
+[
+  {
+    "slug": "host",
+    "name": "主持人",
+    "title": "主持人｜会议组织者与主要诊断人",
+    "sector": "会议方法论",
+    "stage": "组织者",
+    "bottleneck": "帮助创业者把模糊表达拉回客户、需求和成交现场",
+    "action": "用 30 秒介绍和“谁会付钱”检验每个项目",
+    "priority": "方法论"
+  },
+  {
+    "slug": "zelong",
+    "name": "泽龙",
+    "title": "泽龙｜传统跨境电商转 AI 企服",
+    "sector": "AI企服/跨境",
+    "stage": "转型验证",
+    "bottleneck": "原有跨境资源尚未转成 AI 企服产品入口",
+    "action": "给原有电商客户发布 AI 企服服务菜单，拿 3 个样板客户",
+    "priority": "高"
+  },
+  {
+    "slug": "qiyin",
+    "name": "启茵",
+    "title": "启茵｜香港港漂垂直 IP 项目",
+    "sector": "自媒体/IP",
+    "stage": "MVP",
+    "bottleneck": "香港 IP 容易自嗨，真实港漂刚需和私域承接未跑通",
+    "action": "先不做小程序，连续测试租房、换汇、开户、求职等 30 条内容",
+    "priority": "高"
+  },
+  {
+    "slug": "xincheng",
+    "name": "新城",
+    "title": "新城｜AI 提效工具与运营课程",
+    "sector": "AI企服/培训",
+    "stage": "获客验证",
+    "bottleneck": "代做和工具产品之间摇摆，企培成交物料不足",
+    "action": "做企业提效演示包和五件套，去产业带地推",
+    "priority": "高"
+  },
+  {
+    "slug": "xiaoyao",
+    "name": "逍遥",
+    "title": "逍遥｜AI 数据服务、企业培训与社群",
+    "sector": "AI企服/案例库",
+    "stage": "产品化",
+    "bottleneck": "案例展示和变现路径不够产品化",
+    "action": "做手机端行业案例库，用安卓和苹果测试可读性",
+    "priority": "高"
+  },
+  {
+    "slug": "wenhu-tiger",
+    "name": "文虎Tiger （文虎）",
+    "title": "文虎Tiger （文虎）｜AI 加英语学习视频站",
+    "sector": "出海网站/内容",
+    "stage": "轻量试错",
+    "bottleneck": "视频制作效率和 APP 维护方向容易过重",
+    "action": "拆 20 个英语学习爆款分镜，用网站 SEO 和广告轻量验证",
+    "priority": "中"
+  },
+  {
+    "slug": "qingzai",
+    "name": "清仔",
+    "title": "清仔｜跨境 AI 企服定价与长期变现",
+    "sector": "AI企服/跨境",
+    "stage": "定价放大",
+    "bottleneck": "已成交但定价和长期 MSP 路径不清晰",
+    "action": "把已成交项目包装成案例，设计三档报价",
+    "priority": "高"
+  },
+  {
+    "slug": "linyi",
+    "name": "林奕",
+    "title": "林奕｜多方向 AI 创业选择",
+    "sector": "职业培训/AI",
+    "stage": "渠道验证",
+    "bottleneck": "PPT、微软服务、职业培训、工具产品多方向分散",
+    "action": "优先调研 AI 职业培训证书和地方渠道分润",
+    "priority": "中"
+  },
+  {
+    "slug": "lixia-victoria",
+    "name": "立夏（Victoria）",
+    "title": "立夏（Victoria）｜减肥营养品私域流量",
+    "sector": "大健康/私域",
+    "stage": "流量再增长",
+    "bottleneck": "私域已有一波，缺新流量和团长渠道",
+    "action": "成长号和营养号并行，招募宝妈团长和读书群主",
+    "priority": "高"
+  },
+  {
+    "slug": "dadao",
+    "name": "大道",
+    "title": "大道｜多平台分发与变现",
+    "sector": "AI自媒体",
+    "stage": "冷启动",
+    "bottleneck": "平台选择和变现路径不清",
+    "action": "一个主题拆成 10 种形态分发，先到 5000 粉",
+    "priority": "中"
+  },
+  {
+    "slug": "link",
+    "name": "link",
+    "title": "link｜AI 开发与自媒体记录平衡",
+    "sector": "AI应用/自媒体",
+    "stage": "公开记录",
+    "bottleneck": "产品数据不好时不敢公开，产品和内容割裂",
+    "action": "用创业实验室定位公开 5 个产品过程和数据",
+    "priority": "高"
+  },
+  {
+    "slug": "qingtian",
+    "name": "晴天",
+    "title": "晴天｜野路子创业者赛道选择",
+    "sector": "流量/AI代做",
+    "stage": "选赛道",
+    "bottleneck": "会打流量但后端业务未锁定",
+    "action": "上架 5 个 AI 代做服务，闲鱼/小红书/本地群测试",
+    "priority": "高"
+  },
+  {
+    "slug": "asu-bacong",
+    "name": "阿苏（巴聪）",
+    "title": "阿苏（巴聪）｜跨境电商多业务精力分配",
+    "sector": "跨境电商",
+    "stage": "组织升级",
+    "bottleneck": "成熟业务、AI 学习、选品和团队建设分散精力",
+    "action": "固定面试节奏，建立异常爆品 AI 选品 SOP",
+    "priority": "高"
+  },
+  {
+    "slug": "zhangwei-david",
+    "name": "张玮（David）",
+    "title": "张玮（David）｜工厂出海数字化服务获客",
+    "sector": "工厂出海/企服",
+    "stage": "标杆客户",
+    "bottleneck": "老板担心效果，交付路径长",
+    "action": "不承诺增长，做行业案例 iPad 展示包和内容交付报价",
+    "priority": "高"
+  },
+  {
+    "slug": "abing",
+    "name": "阿冰",
+    "title": "阿冰｜自媒体与跨境选择",
+    "sector": "自媒体/快钱",
+    "stage": "现金流修复",
+    "bottleneck": "自媒体不敢变现，长期没正反馈",
+    "action": "先做可控快钱，同时推出个人使用说明书 H5 样板",
+    "priority": "中"
+  },
+  {
+    "slug": "yuanye",
+    "name": "袁野",
+    "title": "袁野｜纸巾电商供应链新方向",
+    "sector": "电商供应链",
+    "stage": "规模延展",
+    "bottleneck": "纸巾电商利润低，担心项目周期",
+    "action": "用 8000 万业绩背书做平台 BD 和出海小组",
+    "priority": "高"
+  },
+  {
+    "slug": "chenxi-cenxi",
+    "name": "晨曦（岑奚）",
+    "title": "晨曦（岑奚）｜小红书虚拟产品流量卡点",
+    "sector": "虚拟产品",
+    "stage": "换品验证",
+    "bottleneck": "测试粉流量价值和客户价值偏低",
+    "action": "两天全平台找 10 个高价值模板，开两个号测试",
+    "priority": "中"
+  },
+  {
+    "slug": "ruanzi-ruandafan",
+    "name": "阮子（阮大范）",
+    "title": "阮子（阮大范）｜小红书百货与 POD 定制方向",
+    "sector": "小红书电商/POD",
+    "stage": "爆品验证",
+    "bottleneck": "标签混乱，POD 周期过长",
+    "action": "先多账号做小红书百货卖货，爆文后再考虑 POD",
+    "priority": "中"
+  },
+  {
+    "slug": "xiaoyan",
+    "name": "萧炎",
+    "title": "萧炎｜油管、工具项目与招人",
+    "sector": "油管/视频号",
+    "stage": "SOP搭建",
+    "bottleneck": "内容做不过来，招人与标准化犹豫",
+    "action": "用 6000 元预算做 10 天日结助理试岗",
+    "priority": "中"
+  },
+  {
+    "slug": "jojo",
+    "name": "JOJO",
+    "title": "JOJO｜财务转跨境方向选择",
+    "sector": "跨境重启",
+    "stage": "从零掌控",
+    "bottleneck": "财务代账不适合，跨境全托缺主动权",
+    "action": "注册平台账号并自己跑第一批小单",
+    "priority": "中"
+  },
+  {
+    "slug": "chencheng",
+    "name": "陈澄",
+    "title": "陈澄｜短视频流量焦虑与事业选择",
+    "sector": "短视频/CPS",
+    "stage": "产品闭环",
+    "bottleneck": "有内容能力但缺后端产品，长视频反馈慢",
+    "action": "选一个能承接流量的 CPS 或本地服务产品",
+    "priority": "高"
+  },
+  {
+    "slug": "yejie",
+    "name": "业杰",
+    "title": "业杰｜抖音擦边投放方向选择",
+    "sector": "投放/视频号",
+    "stage": "红利测试",
+    "bottleneck": "知识付费消耗，学员投不出结果",
+    "action": "测试视频号深夜投放和真人口播素材",
+    "priority": "高"
+  },
+  {
+    "slug": "fei",
+    "name": "菲",
+    "title": "菲｜AI 出海网站起步",
+    "sector": "AI出海网站",
+    "stage": "流量优先",
+    "bottleneck": "产品先行但半年没有流量结果",
+    "action": "70% 精力做关键词、竞品、收录和外链",
+    "priority": "高"
+  },
+  {
+    "slug": "sheriff-learning-committee",
+    "name": "学习委员警长分享",
+    "title": "学习委员警长分享｜联合办公的隐性收益",
+    "sector": "社群角色",
+    "stage": "资源链接",
+    "bottleneck": "多数人低估社群角色带来的项目信息密度",
+    "action": "承担社群服务角色，增加深聊与项目样本",
+    "priority": "中"
+  },
+  {
+    "slug": "collaboration-faq",
+    "name": "资源合作答疑",
+    "title": "资源合作答疑｜前端后端如何合作",
+    "sector": "资源合作",
+    "stage": "信任验证",
+    "bottleneck": "初识就拆前后端容易稀释核心资源",
+    "action": "先用小单、牵线提成和转介绍验证协作",
+    "priority": "方法论"
+  }
+]

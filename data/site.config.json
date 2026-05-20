@@ -1,0 +1,51 @@
+{
+  "title": "广州创业项目交流会 Wiki",
+  "subtitle": "把 4 小时 40 分钟创业诊断，整理成可查询、可传播、可执行的项目地图。",
+  "date": "2026-05-20",
+  "duration": "4 小时 40 分钟",
+  "people": "约 20 人",
+  "repo": "https://github.com/siuserxiaowei/guangzhou-founder-roundtable-2026",
+  "pages_url": "https://siuserxiaowei.github.io/guangzhou-founder-roundtable-2026/",
+  "feishu_wiki": "https://vi8r050ecuz.feishu.cn/wiki/BmriwrIA7i3Liekw5uWcXYU2nPg?from=from_copylink",
+  "source_minutes": "https://acnrhfgp5jss.feishu.cn/minutes/obcnqi2z2b8e996e26235qu8?from=from_copylink",
+  "modules": {
+    "project_map": true,
+    "quote_wall": true,
+    "action_dashboard": true,
+    "wiki_reader": true,
+    "config_page": true
+  },
+  "groups": {
+    "AI 企服": [
+      "泽龙",
+      "新城",
+      "逍遥",
+      "清仔",
+      "张玮（David）"
+    ],
+    "流量与自媒体": [
+      "启茵",
+      "大道",
+      "link",
+      "立夏（Victoria）",
+      "阿冰"
+    ],
+    "电商与跨境": [
+      "阿苏（巴聪）",
+      "袁野",
+      "阮子（阮大范）",
+      "文虎Tiger （文虎）",
+      "JOJO"
+    ],
+    "短视频与投放": [
+      "萧炎",
+      "陈澄",
+      "业杰"
+    ],
+    "方法论与协作": [
+      "主持人",
+      "学习委员警长分享",
+      "资源合作答疑"
+    ]
+  }
+}

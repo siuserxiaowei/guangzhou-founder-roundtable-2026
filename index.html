@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>广州创业项目交流会 Wiki</title>
+<meta name="description" content="广州创业项目交流会的独立 Wiki 复盘站，包含成员项目诊断、赛道矩阵、项目地图、执行仪表盘和金句墙。" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Noto+Sans+SC:wght@400;500;700;800;900&family=Noto+Serif+SC:wght@700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<style>
+:root{
+  --bg:#0f1110;
+  --panel:#171a16;
+  --panel-2:#1f241e;
+  --ink:#f4f0df;
+  --muted:#aaa78f;
+  --line:rgba(244,240,223,.14);
+  --green:#a9d46e;
+  --teal:#69c9bd;
+  --gold:#f1bd54;
+  --red:#ea6a5f;
+  --blue:#8bb7ff;
+  --shadow:0 24px 80px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 8% 0%, rgba(169,212,110,.16), transparent 32rem),
+    radial-gradient(circle at 92% 10%, rgba(105,201,189,.16), transparent 30rem),
+    linear-gradient(180deg,#10120f,#11140f 45%,#0d0f0c);
+  font-family:"Noto Sans SC",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  letter-spacing:0;
+}
+a{color:inherit}
+button,input,select{font:inherit}
+.app{display:grid;grid-template-columns:320px minmax(0,1fr);min-height:100vh}
+.sidebar{
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow:auto;
+  padding:22px 18px;
+  border-right:1px solid var(--line);
+  background:rgba(13,16,12,.92);
+  backdrop-filter:blur(24px);
+  z-index:20;
+}
+.brand{display:grid;gap:10px;margin-bottom:18px}
+.brand-mark{
+  width:42px;height:42px;border-radius:8px;
+  background:linear-gradient(135deg,var(--green),var(--teal));
+  display:grid;place-items:center;color:#10120f;font-weight:900;
+  box-shadow:0 0 0 1px rgba(255,255,255,.14),0 18px 40px rgba(105,201,189,.18);
+}
+.brand h1{margin:0;font-size:20px;line-height:1.2;font-weight:900}
+.brand p{margin:0;color:var(--muted);font-size:13px;line-height:1.7}
+.search{
+  width:100%;height:44px;border-radius:8px;border:1px solid var(--line);
+  background:#0e100d;color:var(--ink);padding:0 12px;outline:none;
+}
+.search:focus{border-color:rgba(169,212,110,.75);box-shadow:0 0 0 3px rgba(169,212,110,.13)}
+.quick{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0 18px}
+.quick a,.nav a{
+  text-decoration:none;
+  color:var(--muted);
+  border:1px solid transparent;
+}
+.quick a{
+  padding:10px 12px;border-radius:8px;background:rgba(255,255,255,.035);
+  font-size:13px;color:var(--ink);
+}
+.quick a:hover,.nav a:hover{border-color:var(--line);color:var(--ink);background:rgba(255,255,255,.04)}
+.group{margin:18px 0}
+.group-title{
+  color:var(--gold);
+  font:700 12px/1 "IBM Plex Mono",monospace;
+  text-transform:uppercase;
+  letter-spacing:0;
+  margin:0 0 8px;
+}
+.nav{display:grid;gap:3px}
+.nav a{
+  display:block;padding:8px 10px;border-radius:7px;font-size:14px;line-height:1.35;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.nav a.active{color:#11140f;background:var(--green);border-color:transparent;font-weight:800}
+.nav .path{display:block;color:rgba(244,240,223,.45);font-size:11px;margin-top:2px}
+.content{min-width:0}
+.topbar{
+  position:sticky;top:0;z-index:10;height:60px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 28px;border-bottom:1px solid var(--line);
+  background:rgba(16,18,15,.74);backdrop-filter:blur(18px);
+}
+.crumb{color:var(--muted);font-size:13px}
+.built{color:rgba(244,240,223,.52);font:600 12px/1 "IBM Plex Mono",monospace}
+.main{max-width:1200px;margin:0 auto;padding:34px 28px 80px}
+.hero{
+  min-height:calc(100vh - 110px);
+  display:grid;align-content:center;gap:28px;
+  padding:24px 0 44px;
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;color:#10120f;background:var(--gold);
+  width:max-content;border-radius:999px;padding:8px 12px;font-weight:900;font-size:12px;
+}
+.hero h2{
+  margin:0;
+  font-family:"Noto Serif SC",serif;
+  font-size:clamp(42px,7vw,92px);
+  line-height:1.02;
+  letter-spacing:0;
+  max-width:1040px;
+}
+.hero-lead{max-width:820px;color:#d6d0b4;font-size:19px;line-height:1.9;margin:0}
+.metric-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.metric{
+  min-height:126px;border:1px solid var(--line);border-radius:8px;padding:18px;
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));
+  box-shadow:var(--shadow);
+}
+.metric strong{display:block;font:800 34px/1 "IBM Plex Mono",monospace;color:var(--green);margin-bottom:10px}
+.metric span{color:var(--muted);font-size:14px;line-height:1.5}
+.section{margin:44px 0}
+.section h3,.article h1{
+  font-family:"Noto Serif SC",serif;
+  font-size:34px;
+  margin:0 0 18px;
+  letter-spacing:0;
+}
+.section-intro{color:var(--muted);line-height:1.8;max-width:820px}
+.insight-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.insight{
+  border:1px solid var(--line);border-radius:8px;padding:18px;background:rgba(255,255,255,.04);
+}
+.insight h4{margin:0 0 8px;font-size:18px}
+.insight p{margin:0;color:#d2ccb0;line-height:1.75}
+.visual-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
+.panel{
+  border:1px solid var(--line);border-radius:8px;background:rgba(23,26,22,.86);
+  padding:18px;box-shadow:var(--shadow);
+}
+.panel h4{margin:0 0 14px;font-size:18px}
+.bars{display:grid;gap:10px}
+.bar-row{display:grid;grid-template-columns:130px minmax(0,1fr) 34px;gap:10px;align-items:center}
+.bar-label{color:#ded8bd;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-track{height:12px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+.bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--green),var(--teal))}
+.bar-num{text-align:right;color:var(--gold);font:700 13px/1 "IBM Plex Mono",monospace}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  border:1px solid var(--line);border-radius:999px;padding:8px 11px;
+  background:rgba(255,255,255,.035);color:#ddd5b9;font-size:13px;
+}
+.member-tools{
+  display:grid;grid-template-columns:minmax(0,1fr) 180px 180px;gap:10px;margin-bottom:16px;
+}
+.member-tools input,.member-tools select{
+  height:42px;border-radius:8px;border:1px solid var(--line);background:#10130f;color:var(--ink);padding:0 12px;
+}
+.member-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.member-card{
+  display:grid;gap:10px;text-decoration:none;border:1px solid var(--line);border-radius:8px;
+  padding:16px;background:rgba(255,255,255,.04);min-height:230px;
+}
+.member-card:hover{border-color:rgba(169,212,110,.7);background:rgba(169,212,110,.07)}
+.member-card h4{margin:0;font-size:18px}
+.meta{display:flex;flex-wrap:wrap;gap:6px}
+.pill{border-radius:999px;padding:5px 8px;background:rgba(105,201,189,.12);color:#aee9df;font-size:12px}
+.member-card p{margin:0;color:#d4ceb3;line-height:1.65;font-size:14px}
+.action-board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.action-card{
+  border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.04);
+  padding:16px;min-height:180px;
+}
+.action-card time{font:800 13px/1 "IBM Plex Mono",monospace;color:var(--gold)}
+.action-card h4{margin:10px 0 8px;font-size:17px}
+.action-card p{margin:0;color:#d4ceb3;line-height:1.65}
+.quote-wall{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.quote-card{
+  min-height:260px;border-radius:8px;border:1px solid rgba(241,189,84,.34);
+  background:
+    linear-gradient(145deg,rgba(241,189,84,.18),rgba(105,201,189,.08)),
+    rgba(255,255,255,.04);
+  padding:22px;display:grid;align-content:space-between;gap:18px;
+}
+.quote-card blockquote{margin:0;font-family:"Noto Serif SC",serif;font-size:27px;line-height:1.28;font-weight:900}
+.quote-card .tag{color:var(--gold);font-weight:800;font-size:13px}
+.article{
+  max-width:880px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:rgba(23,26,22,.78);
+  padding:34px;
+  box-shadow:var(--shadow);
+}
+.article h1{font-size:38px}
+.article h2{font-size:25px;margin:34px 0 12px;border-top:1px solid var(--line);padding-top:22px}
+.article h3{font-size:20px;margin:26px 0 10px}
+.article p,.article li{color:#d8d1b8;line-height:1.86;font-size:16px}
+.article blockquote{margin:18px 0;padding:14px 18px;border-left:4px solid var(--green);background:rgba(169,212,110,.08);color:#eee8ce}
+.article table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
+.article th,.article td{border:1px solid var(--line);padding:10px;vertical-align:top}
+.article th{background:rgba(255,255,255,.06);color:var(--gold);text-align:left}
+.article code{font-family:"IBM Plex Mono",monospace;background:rgba(255,255,255,.08);padding:2px 5px;border-radius:4px}
+.article pre{overflow:auto;background:#0b0d0b;border:1px solid var(--line);border-radius:8px;padding:16px}
+.article a{color:#bde987;text-decoration:none;border-bottom:1px solid rgba(189,233,135,.35)}
+.article img{max-width:100%;height:auto;border-radius:8px}
+.config-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.config-card{border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.04);padding:16px}
+.config-card h4{margin:0 0 10px;color:var(--gold)}
+.config-card pre{white-space:pre-wrap;word-break:break-word;color:#d8d1b8}
+.empty{padding:24px;color:var(--muted);border:1px dashed var(--line);border-radius:8px}
+.mobile-menu{
+  display:none;position:fixed;left:14px;top:12px;z-index:40;width:42px;height:42px;border-radius:8px;
+  border:1px solid var(--line);background:rgba(16,18,15,.9);color:var(--ink);
+}
+.scrim{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:15}
+@media (max-width:980px){
+  .app{grid-template-columns:1fr}
+  .sidebar{position:fixed;left:0;top:0;bottom:0;transform:translateX(-104%);transition:.2s ease;width:min(86vw,340px)}
+  .sidebar.open{transform:translateX(0)}
+  .scrim.open,.mobile-menu{display:block}
+  .topbar{padding-left:70px}
+  .metric-grid,.insight-grid,.visual-grid,.member-grid,.action-board,.quote-wall,.config-grid{grid-template-columns:1fr}
+  .member-tools{grid-template-columns:1fr}
+  .main{padding:24px 16px 60px}
+  .article{padding:22px}
+  .hero h2{font-size:44px}
+}
+</style>
+</head>
+<body>
+<button class="mobile-menu" id="mobileMenu" aria-label="打开目录">☰</button>
+<div class="scrim" id="scrim"></div>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">GZ</div>
+      <h1>广州创业项目交流会 Wiki</h1>
+      <p>2026-05-20 · 4 小时 40 分钟 · 约 20 人 人左右<br>创业者交流答疑 / 高信息密度 Wiki</p>
+    </div>
+    <input class="search" id="search" placeholder="搜索成员、赛道、卡点、金句..." />
+    <div class="quick">
+      <a href="#home">洞察总览</a>
+      <a href="#project-map">项目地图</a>
+      <a href="#golden-quotes">金句墙</a>
+      <a href="#action-dashboard">执行仪表盘</a>
+    </div>
+    <nav id="nav"></nav>
+  </aside>
+  <main class="content">
+    <div class="topbar">
+      <div class="crumb" id="crumb">会议洞察总览</div>
+      <div class="built">built 2026-05-20</div>
+    </div>
+    <div class="main" id="app"></div>
+  </main>
+</div>
+<script>
+const DATA = {"config": {"title": "广州创业项目交流会 Wiki", "subtitle": "把 4 小时 40 分钟创业诊断，整理成可查询、可传播、可执行的项目地图。", "date": "2026-05-20", "duration": "4 小时 40 分钟", "people": "约 20 人", "repo": "https://github.com/siuserxiaowei/guangzhou-founder-roundtable-2026", "pages_url": "https://siuserxiaowei.github.io/guangzhou-founder-roundtable-2026/", "feishu_wiki": "https://vi8r050ecuz.feishu.cn/wiki/BmriwrIA7i3Liekw5uWcXYU2nPg?from=from_copylink", "source_minutes": "https://acnrhfgp5jss.feishu.cn/minutes/obcnqi2z2b8e996e26235qu8?from=from_copylink", "modules": {"project_map": true, "quote_wall": true, "action_dashboard": true, "wiki_reader": true, "config_page": true}, "groups": {"AI 企服": ["泽龙", "新城", "逍遥", "清仔", "张玮（David）"], "流量与自媒体": ["启茵", "大道", "link", "立夏（Victoria）", "阿冰"], "电商与跨境": ["阿苏（巴聪）", "袁野", "阮子（阮大范）", "文虎Tiger （文虎）", "JOJO"], "短视频与投放": ["萧炎", "陈澄", "业杰"], "方法论与协作": ["主持人", "学习委员警长分享", "资源合作答疑"]}}, "pages": [{"route": "home-index", "path": "index.md", "title": "Wiki Index", "group": "guide", "tags": ["index", "overview"], "body": "# Wiki Index\n\n> 查询前先读这里。页面按“导览、成员、分析、金句、配置、来源”组织。\n\n## 导览\n\n- [[how-to-read]] — 这份会议复盘应该怎么读\n- [[meeting-overview]] — 会议背景、流程和核心主线\n- [[core-insights]] — 本场最重要的 8 个判断\n- [[faq]] — 常见问题与阅读提醒\n\n## 成员项目诊断\n\n- [[host]] — 主持人：会议方法论 / 组织者\n- [[zelong]] — 泽龙：AI企服/跨境 / 转型验证\n- [[qiyin]] — 启茵：自媒体/IP / MVP\n- [[xincheng]] — 新城：AI企服/培训 / 获客验证\n- [[xiaoyao]] — 逍遥：AI企服/案例库 / 产品化\n- [[wenhu-tiger]] — 文虎Tiger （文虎）：出海网站/内容 / 轻量试错\n- [[qingzai]] — 清仔：AI企服/跨境 / 定价放大\n- [[linyi]] — 林奕：职业培训/AI / 渠道验证\n- [[lixia-victoria]] — 立夏（Victoria）：大健康/私域 / 流量再增长\n- [[dadao]] — 大道：AI自媒体 / 冷启动\n- [[link]] — link：AI应用/自媒体 / 公开记录\n- [[qingtian]] — 晴天：流量/AI代做 / 选赛道\n- [[asu-bacong]] — 阿苏（巴聪）：跨境电商 / 组织升级\n- [[zhangwei-david]] — 张玮（David）：工厂出海/企服 / 标杆客户\n- [[abing]] — 阿冰：自媒体/快钱 / 现金流修复\n- [[yuanye]] — 袁野：电商供应链 / 规模延展\n- [[chenxi-cenxi]] — 晨曦（岑奚）：虚拟产品 / 换品验证\n- [[ruanzi-ruandafan]] — 阮子（阮大范）：小红书电商/POD / 爆品验证\n- [[xiaoyan]] — 萧炎：油管/视频号 / SOP搭建\n- [[jojo]] — JOJO：跨境重启 / 从零掌控\n- [[chencheng]] — 陈澄：短视频/CPS / 产品闭环\n- [[yejie]] — 业杰：投放/视频号 / 红利测试\n- [[fei]] — 菲：AI出海网站 / 流量优先\n- [[sheriff-learning-committee]] — 学习委员警长分享：社群角色 / 资源链接\n- [[collaboration-faq]] — 资源合作答疑：资源合作 / 信任验证\n\n## 可视化分析\n\n- [[project-map]] — 项目地图：成员、赛道、阶段、卡点和行动项\n- [[sector-matrix]] — 赛道矩阵：AI 企服、自媒体、跨境、电商、短视频\n- [[timeline]] — 会议时间线：从 00:00 到 04:31\n- [[action-dashboard]] — 执行仪表盘：7 条待办与 7 天行动建议\n\n## 金句与传播\n\n- [[golden-quotes]] — 金句墙与传播卡片\n\n## 配置与来源\n\n- [[site-configuration]] — 静态配置页与 JSON 数据说明\n- [[sources-and-permissions]] — 资料来源、权限说明与整理边界\n\n## Changelog\n\n- [[2026-05-21-initial-wiki]] — 初始独立 Wiki 站创建", "updated": "2026-05-21"}, {"route": "core-insights", "path": "guide/core-insights.md", "title": "核心洞察", "group": "guide", "tags": ["insights", "methodology"], "body": "# 核心洞察\n\n## 1. 30 秒介绍不是形式，是项目清晰度测试\n\n讲不清楚通常不是表达问题，而是客户、痛点、交付、变现和合作点还没有组织成一套商业语言。相关页面：[[host]]、[[project-map]]。\n\n## 2. 先问谁会付钱\n\n很多项目一开始沉迷名称、工具和内容形式，但没有回答“谁会为这个结果付钱”。相关页面：[[qiyin]]、[[qingzai]]、[[chenxi-cenxi]]。\n\n## 3. AI 是工具，不是战场\n\n普通创业者不一定要靠 AI 技术本身赚钱，更适合把 AI 翻译成客户买得懂的结果。相关页面：[[zelong]]、[[xincheng]]、[[xiaoyao]]、[[fei]]。\n\n## 4. 企服要靠可视化成交\n\nPPT、案例库、iPad 展示、H5、短视频和行业方案，本质都是降低客户理解成本。相关页面：[[xiaoyao]]、[[qingzai]]、[[zhangwei-david]]。\n\n## 5. 流量打法和 IP 打法不是一回事\n\n早期先解决被看见，再沉淀成 IP。相关页面：[[qiyin]]、[[dadao]]、[[link]]、[[lixia-victoria]]。\n\n## 6. 成熟业务要组织升级，不是老板继续加班\n\n阿苏和袁野的关键不是再找一个风口，而是招人、数据选品、平台资源、产业带和出海新事业部。相关页面：[[asu-bacong]]、[[yuanye]]。\n\n## 7. 现金流不足时，先离钱近一点\n\n代做、虚拟资料、小红书实拍、跨境小单、个人 H5，都比一开始做重产品更接近市场。相关页面：[[qingtian]]、[[abing]]、[[jojo]]。\n\n## 8. 不要急着合伙，先用小单验证\n\n刚认识就拆前端后端，容易稀释核心资源。更稳的方式是转介绍、牵线提成、小单试交付。相关页面：[[collaboration-faq]]。", "updated": "2026-05-21"}, {"route": "faq", "path": "guide/faq.md", "title": "FAQ", "group": "guide", "tags": ["faq"], "body": "# FAQ\n\n## 这份 Wiki 和原飞书文档有什么区别？\n\n飞书文档偏完整纪要，这里偏“可查询、可分析、可执行”。它把成员、赛道、金句、行动项拆成独立页面和结构化数据，并加入项目地图、仪表盘和传播卡片。\n\n## 为什么要拆成员页？\n\n因为每个人的问题不同。拆页后可以直接分享某个人的项目诊断，也方便按赛道聚合。\n\n## 可视化分析是不是新增结论？\n\n不是。项目地图、赛道矩阵和执行仪表盘都来自原会议纪要与修正稿，只是换成更容易扫读的结构。\n\n## 逐字稿没有放进来吗？\n\n没有。逐字稿当前权限不可读，详见 [[sources-and-permissions]]。", "updated": "2026-05-21"}, {"route": "how-to-read", "path": "guide/how-to-read.md", "title": "如何阅读这份复盘", "group": "guide", "tags": ["guide", "reading"], "body": "# 如何阅读这份复盘\n\n这不是一篇普通会议摘要，而是一张创业项目诊断地图。建议按三层阅读：\n\n## 先看全局\n\n从 [[meeting-overview]] 和 [[core-insights]] 开始，先理解本场会议的主线：项目清晰度、流量/IP、AI 企服、电商出海、现金流和资源合作。\n\n## 再看自己\n\n进入对应成员页，例如 [[qiyin]]、[[qingzai]]、[[yuanye]]、[[yejie]]。每个成员页都保留项目背景、卡点、主持人判断和可执行下一步。\n\n## 最后看行动\n\n看 [[project-map]]、[[sector-matrix]] 和 [[action-dashboard]]，把“听懂了”变成“今天做什么”。重点不是收藏，而是 7 天内至少做出一个展示物料、一次真实沟通或一次试单。", "updated": "2026-05-21"}, {"route": "meeting-overview", "path": "guide/meeting-overview.md", "title": "会议总览", "group": "guide", "tags": ["overview", "meeting"], "body": "# 会议总览\n\n## 1. 基本信息\n\n- **录音时间：**2026-05-20 14:06:52 到 18:47:41，约 4 小时 40 分钟。\n- **参与人数：**约 20 人，内容形态为创业沙龙、项目诊断、创业者交流答疑。\n- **核心场景：**广州创业社群线下活动，主持人逐一听取成员项目、资源和卡点，针对不同阶段给出落地建议。\n- **覆盖赛道：**AI 企业服务、自媒体、跨境电商、小红书电商、虚拟产品、AI 出海网站、短视频 CPS、视频号带货、本地企业服务、职业培训等。\n\n## 2. 开场规则与主持人背景\n\n开场最重要的规则是 30 秒自我介绍：每个人要在极短时间内讲清楚自己是谁、正在做什么、为什么值得合作、卡在哪里。这个规则不是形式感，而是创业项目清晰度测试。如果 30 秒讲不清楚，往往说明项目本身还没有想明白，至少没有把客户、需求、产品、资源和变现路径组织成一套可交流的语言。\n\n主持人同时介绍了联合办公和社群资源的价值：一万多元可以使用 500 平办公室一整年，还包含接近 100 场分享会，单场学习和链接成本非常低。主持人一年会见约 2000 位创业者，对各类创业项目和真实卡点有大量一线体感，因此本次活动的定位不是泛泛聊天，而是把每个人的项目快速拉到商业现场做诊断。\n\n## 3. 本场会议的主线\n\n- **项目要讲清楚：**不能只说自己会什么、想做什么，而要讲清楚客户是谁、痛点是什么、怎么获得流量、怎么成交、怎么交付。\n- **先离钱近一点：**如果现金流不足，不要一开始就做周期长、反馈慢、重投入的项目，先用代做、虚拟资料、CPS、视频号、小红书实拍等方式拿正反馈。\n- **AI 是工具，不是战场：**普通创业者不一定要靠 AI 技术本身赚钱，更重要的是用 AI 提高原有业务的效率，或者把 AI 翻译成客户能买懂的结果。\n- **流量和 IP 要分开：**有明确后端产品时，可以先用流量打法切入，解决被看见和导入私域的问题；IP 是流量和信任长期沉淀后的结果。\n- **企业服务要靠信任成交：**To B 不只靠线上内容，更需要案例、PPT、行业方案、iPad 演示、线下拜访、报价表和交付边界。\n- **资源要复用：**原来的供应链、人脉、内容能力、短视频经验、财务经验、本地企业资源都不是废资产，关键是重新包装成客户愿意付费的服务。", "updated": "2026-05-21"}, {"route": "sources-and-permissions", "path": "guide/sources-and-permissions.md", "title": "资料来源与权限说明", "group": "source", "tags": ["source", "permissions"], "body": "# 资料来源与权限说明\n\n- **修正后的飞书 Wiki 文档：**[https://vi8r050ecuz.feishu.cn/wiki/BmriwrIA7i3Liekw5uWcXYU2nPg?from=from_copylink](https://vi8r050ecuz.feishu.cn/wiki/BmriwrIA7i3Liekw5uWcXYU2nPg?from=from_copylink)。这是本版独立 Wiki 站的主素材，以其中“全员项目诊断详稿”的人名修正为准。\n- **原妙记：**[https://acnrhfgp5jss.feishu.cn/minutes/obcnqi2z2b8e996e26235qu8?from=from_copylink](https://acnrhfgp5jss.feishu.cn/minutes/obcnqi2z2b8e996e26235qu8?from=from_copylink)。妙记 AI 产物可读，包含 23 个章节和 7 条待办。\n- **原智能纪要：**[https://acnrhfgp5jss.feishu.cn/docx/AYLvdXRKhoZ1Khxa3SvcYIEVnug](https://acnrhfgp5jss.feishu.cn/docx/AYLvdXRKhoZ1Khxa3SvcYIEVnug)。当前可读，长度约 1.1 万字，用作交叉校验。\n- **逐字稿权限：**逐字稿文档 token 为 XCemdOBWAo8M6Rx6Ww1cVOoknvd。当前登录用户读取返回 3380004 No permission；妙记 transcript 下载返回 HTTP 403。因此，本版没有依赖不可读逐字稿，而是使用可读 wiki 全文、智能纪要和妙记 AI 产物整理。\n- **整理边界：**本文不逐字还原全部口语，而是保留关键判断、案例、数字、打法和行动建议，整理成清晰易读、便于复盘和执行的飞书文档。", "updated": "2026-05-21"}, {"route": "abing", "path": "members/abing.md", "title": "阿冰｜自媒体与跨境选择", "group": "member", "tags": ["member", "自媒体-快钱"], "body": "# 阿冰｜自媒体与跨境选择\n\n> **一句话定位：**自媒体/快钱，当前阶段是 **现金流修复**。\n\n## 当前卡点\n\n自媒体不敢变现，长期没正反馈\n\n## 会后第一动作\n\n先做可控快钱，同时推出个人使用说明书 H5 样板\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | 自媒体/快钱 |\n| 阶段 | 现金流修复 |\n| 优先级 | 中 |\n\n## 原文整理\n\n- **项目背景：**阿冰想找喜欢又能赚钱的事业，做了两个自媒体：AI 账号涨粉慢，不敢变现；日常碎碎念账号也没有变现。同时跨境那边有一个擦边项目能快速赚钱，纠结是否要做。\n- **主持人判断：**如果不用自己的身份，只拿提成，风险可控，可以先做。先赚钱滋养心力，不要让自己长期处于没结果的焦虑里。\n- **自媒体建议：**不要自我设限，AI 账号哪怕只有 8 个人社群也可以大胆收钱。只要每年新增大于退群，就能慢慢做大。\n- **产品建议：**可以接“个人使用说明书 H5”定制单。微商、知识付费、企业服务老板都需要差异化个人介绍页，需求明确，交付不重，容易起单。\n- **可执行动作：**先用擦边提成项目解决现金流；同时做一款个人 H5 介绍页样板，定价低中高三档，先在朋友圈和小红书测试。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "asu-bacong", "path": "members/asu-bacong.md", "title": "阿苏（巴聪）｜跨境电商多业务精力分配", "group": "member", "tags": ["member", "跨境电商"], "body": "# 阿苏（巴聪）｜跨境电商多业务精力分配\n\n> **一句话定位：**跨境电商，当前阶段是 **组织升级**。\n\n## 当前卡点\n\n成熟业务、AI 学习、选品和团队建设分散精力\n\n## 会后第一动作\n\n固定面试节奏，建立异常爆品 AI 选品 SOP\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | 跨境电商 |\n| 阶段 | 组织升级 |\n| 优先级 | 高 |\n\n## 原文整理\n\n- **项目背景：**阿苏（巴聪）做两个跨境电商业务，一个是 B 端 C 端都做的八位数成熟业务，另一个是精品选品线路。现在同时学 AI、提升选品审美、搭团队，精力分散。\n- **主持人判断：**已有成熟业务的人，核心不是继续亲自做所有事，而是招人和搭组织。即使暂时不招，也要保持面试习惯，不断接触优秀的人，从招聘市场里获取行业信息。\n- **选品建议：**用 AI 爬跨平台异常爆品，定好数据标准。例如某个店单月卖 6 万台，就是异常值，可以围绕异常值做微创新。效率会比纯人肉选品高很多。\n- **跨境心法：**跨境电商成功要做到“多快好省”。其中“省”最难，很多创业者做不到成本控制，只有长期积累的行业玩家才有机会做好。\n- **可执行动作：**把精力从日常事务转向招聘、数据选品和新模式探索；设计选品异常值标准；每周固定面试候选人；把成熟业务中的常规动作交给团队。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "chencheng", "path": "members/chencheng.md", "title": "陈澄｜短视频流量焦虑与事业选择", "group": "member", "tags": ["member", "短视频-CPS"], "body": "# 陈澄｜短视频流量焦虑与事业选择\n\n> **一句话定位：**短视频/CPS，当前阶段是 **产品闭环**。\n\n## 当前卡点\n\n有内容能力但缺后端产品，长视频反馈慢\n\n## 会后第一动作\n\n选一个能承接流量的 CPS 或本地服务产品\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | 短视频/CPS |\n| 阶段 | 产品闭环 |\n| 优先级 | 高 |\n\n## 原文整理\n\n- **项目背景：陈澄**做了 11 年短视频，帮亚马逊公司做过 TikTok 团队，现在出来创业。做油管长视频反馈周期长，心态焦虑；也接 AI 商单，尝试抖音 CPA，希望找到稳定事业。\n- **主持人判断：**陈澄有内容能力，但以前是“有流量、没产品”，所以容易吃不饱饿不死。现在关键是找到能承接流量的后端产品，形成前端流量加后端产品闭环。\n- **方向建议：**可以做 CPS、本地机构服务、旅游酒店代订、海外玄学等。主持人举例，如果有做玄学的朋友有证，国内管制严，可以去海外做，海外流量成本低、需求旺盛，无本万利，刚好匹配内容能力。\n- **可执行动作：**选择一个后端产品，不再只看播放量；用 10 条短视频测试引流和询单；把焦虑从“长视频多久反馈”转移到“每条内容是否带来商业线索”。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "chenxi-cenxi", "path": "members/chenxi-cenxi.md", "title": "晨曦（岑奚）｜小红书虚拟产品流量卡点", "group": "member", "tags": ["member", "虚拟产品"], "body": "# 晨曦（岑奚）｜小红书虚拟产品流量卡点\n\n> **一句话定位：**虚拟产品，当前阶段是 **换品验证**。\n\n## 当前卡点\n\n测试粉流量价值和客户价值偏低\n\n## 会后第一动作\n\n两天全平台找 10 个高价值模板，开两个号测试\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | 虚拟产品 |\n| 阶段 | 换品验证 |\n| 优先级 | 中 |\n\n## 原文整理\n\n- **项目背景：**晨曦（岑奚）做小红书性格测试类虚拟产品，流量越来越差，想转小程序，但核心仍然卡在流量。\n- **主持人判断：**问题不只是平台，而是测试粉流量价值和客户终身价值都偏低。即使有流量，也不一定值得长期投入。\n- **流量建议：**不要只做小红书。闲鱼、微信生态、B 站、抖音、美团都有流量。要全平台像素级抄袭对标，模板有生命周期，一个月换 8 套模板也正常，同行异业模板可以直接复用。\n- **方向建议：**与其继续做低价值测试粉，不如考虑美甲、美睫、收纳等更高客户价值方向，或者转向代做项目、虚拟资料等更容易成交的产品。\n- **可执行动作：**用两天时间全平台搜索，找到有感觉且客户价值更高的项目；开两个号直接测试，不要继续在小程序或旧项目里纠结。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "collaboration-faq", "path": "members/collaboration-faq.md", "title": "资源合作答疑｜前端后端如何合作", "group": "member", "tags": ["member", "资源合作"], "body": "# 资源合作答疑｜前端后端如何合作\n\n> **一句话定位：**资源合作，当前阶段是 **信任验证**。\n\n## 当前卡点\n\n初识就拆前后端容易稀释核心资源\n\n## 会后第一动作\n\n先用小单、牵线提成和转介绍验证协作\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | 资源合作 |\n| 阶段 | 信任验证 |\n| 优先级 | 方法论 |\n\n## 原文整理\n\n- **问题背景：**现场有人提到，很多人是单人创业，有人有前端流量，有人有后端产品，是否可以合作分工。\n- **主持人判断：**不建议刚认识就拆分前端后端。创业初期最好自己既做前端获客，又做后端交付。不要轻易把核心资源交出去，否则容易被稀释。\n- **合作原则：**自己掌控全流程最稳妥。只有当自己跑通了获客、交付和复购，才更容易判断别人合作是否靠谱。\n- **资源变现方式：**如果手里有 B 端老板资源，但自己没有产品，可以整合现场参会者的产品。你负责牵线拿提成，别人负责交付，也能变现，不必从零做产品。\n- **可执行动作：**不要一上来谈合伙，先谈单次项目、转介绍、渠道提成或联合交付；所有合作先用小单验证信任和履约能力。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "dadao", "path": "members/dadao.md", "title": "大道｜多平台分发与变现", "group": "member", "tags": ["member", "AI自媒体"], "body": "# 大道｜多平台分发与变现\n\n> **一句话定位：**AI自媒体，当前阶段是 **冷启动**。\n\n## 当前卡点\n\n平台选择和变现路径不清\n\n## 会后第一动作\n\n一个主题拆成 10 种形态分发，先到 5000 粉\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | AI自媒体 |\n| 阶段 | 冷启动 |\n| 优先级 | 中 |\n\n## 原文整理\n\n- **项目背景：**该创业者想做 AI 自媒体，同时考虑公众号、小红书、推特、TikTok 等国内外平台，纠结精力不够，也不知道怎么变现。\n- **平台判断：**所有平台都可以做。内容生产本身才是最难的部分，把一个内容改成 10 种形态分发到 10 个平台，边际成本相对低。\n- **变现路径：**先做内容涨粉，做到 5000 粉之后接广告；之后做虚拟资料；再往知识付费、卖工具、课程和社群递进。\n- **资金规划：**如果存款不够，不建议裸辞硬扛。可以先接 AI 代做、AI 代写这类快单，赚万八千维持现金流，剩余时间继续做自媒体。\n- **可执行动作：**设计一个“一鱼十吃”的内容 SOP：长文、短帖、小红书图文、视频脚本、推特线程、公众号文章、资料包、直播提纲、社群话题、工具测评。每周只选 2 个核心主题，但分发到 8 到 10 个渠道。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "fei", "path": "members/fei.md", "title": "菲｜AI 出海网站起步", "group": "member", "tags": ["member", "AI出海网站"], "body": "# 菲｜AI 出海网站起步\n\n> **一句话定位：**AI出海网站，当前阶段是 **流量优先**。\n\n## 当前卡点\n\n产品先行但半年没有流量结果\n\n## 会后第一动作\n\n70% 精力做关键词、竞品、收录和外链\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | AI出海网站 |\n| 阶段 | 流量优先 |\n| 优先级 | 高 |\n\n## 原文整理\n\n- **项目背景：**斐之前做用户研究，现在做 AI 出海网站，做了快半年没有拿到流量结果，不知道最快路径是什么。\n- **主持人判断：**AI 出海网站最大的问题往往不是网站不够完美，而是没有把主要精力放在流量上。不要先想产品，而要先看见需求。\n- **精力分配：**70% 精力搞流量，20% 精力搞产品，10% 精力做精细化运营。网站不用一开始完美，先上线再迭代。\n- **学习建议：**去看戈飞公众号，出海网站流量玩法基本都公开了，免费就能看，不必先买付费课程。付费课程更多是买自己的主观能动性，不是信息本身稀缺。\n- **关键原话：**“永远是我看见了一个需求，而不是我想到了一个产品。”这句话适用于所有工具站、AI 网站、出海站和小产品。\n- **可执行动作：**每天先做关键词、竞品、流量渠道和需求验证，再决定开发；每个站点都要有明确搜索词、内容入口和转化动作。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "host", "path": "members/host.md", "title": "主持人｜会议组织者与主要诊断人", "group": "member", "tags": ["member", "会议方法论"], "body": "# 主持人｜会议组织者与主要诊断人\n\n> **一句话定位：**会议方法论，当前阶段是 **组织者**。\n\n## 当前卡点\n\n帮助创业者把模糊表达拉回客户、需求和成交现场\n\n## 会后第一动作\n\n用 30 秒介绍和“谁会付钱”检验每个项目\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | 会议方法论 |\n| 阶段 | 组织者 |\n| 优先级 | 方法论 |\n\n## 原文整理\n\n- **角色定位：**本场活动的主持人、诊断者和方法论输出者。核心任务是帮助大家把模糊项目拆成可执行的商业路径。\n- **关键判断：**创业者常见问题不是想法太少，而是想法太多、路径太散、客户不清、变现距离太远。很多人沉浸在自己的项目里，讲不清楚项目，外部人自然也帮不上忙。\n- **核心方法：**用 30 秒介绍检验项目清晰度；用“谁会付钱”检验需求；用“流量价值和客户价值”检验赛道；用“前端流量加后端产品”判断是否能形成事业。\n- **重要提醒：**25 岁之后不要一直浪，如果一件事不是事业，要么把它当过渡项目，要么从项目里挖掘出事业。赚钱本身没那么神秘，很多 2 万元以下月收入的事情靠执行就能拿到结果。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "jojo", "path": "members/jojo.md", "title": "JOJO｜财务转跨境方向选择", "group": "member", "tags": ["member", "跨境重启"], "body": "# JOJO｜财务转跨境方向选择\n\n> **一句话定位：**跨境重启，当前阶段是 **从零掌控**。\n\n## 当前卡点\n\n财务代账不适合，跨境全托缺主动权\n\n## 会后第一动作\n\n注册平台账号并自己跑第一批小单\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | 跨境重启 |\n| 阶段 | 从零掌控 |\n| 优先级 | 中 |\n\n## 原文整理\n\n- **项目背景：**JOJO 做了 10 年财务，做到财务经理，也做过 Shein 跨境全托。现在业务不好，纠结继续做跨境、换平台，还是回到财务咨询。\n- **财务方向判断：**如果手里没有 400 家稳定续存客户，就不要做代账。代账赛道新客户获取难，竞争成熟，对没有客户资源的人不友好。\n- **跨境建议：**不要继续做全托，要自己做。每一个环节都自己走一遍，才能掌握主动权。先看大量教程，把所有平台账号注册一遍，了解每个平台规则，再从小单开始测试。\n- **核心逻辑：**过去的财务经验不是没用，但不能因为自己懂财务就默认应该回去做财务咨询。创业要看客户资源和获客能力，不只看专业能力。\n- **可执行动作：**放弃“马上做代账”的想法，给自己 30 天跨境重启期：注册账号、看教程、跑小单、记录每个平台规则和成本。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "link", "path": "members/link.md", "title": "link｜AI 开发与自媒体记录平衡", "group": "member", "tags": ["member", "AI应用-自媒体"], "body": "# link｜AI 开发与自媒体记录平衡\n\n> **一句话定位：**AI应用/自媒体，当前阶段是 **公开记录**。\n\n## 当前卡点\n\n产品数据不好时不敢公开，产品和内容割裂\n\n## 会后第一动作\n\n用创业实验室定位公开 5 个产品过程和数据\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | AI应用/自媒体 |\n| 阶段 | 公开记录 |\n| 优先级 | 高 |\n\n## 原文整理\n\n- **项目背景：**link 从大厂游戏部门辞职，做 AI 应用开发，已经上线 5 个 APP 和小程序，同时做自媒体记录创业，挑战一年做 20 个项目。\n- **核心卡点：**产品数据不好时不敢发内容，有些项目不想公开，不知道如何平衡产品和内容。\n- **主持人判断：**越真实越值得发。产品失败、数据波动、情绪变化、复盘过程都可以成为“创业实验室”内容。公开过程不是削弱产品，反而能建立信任。\n- **课程变现：**可以教人做小程序、网站、小工具，做课程售卖。主持人提到三倍定价法则：如果 30% 学员能月入 500 元，课程定价 158 元就符合市场规律。\n- **平台建议：**不要忽略微博。微博一天可以发很多条，流量起得快，很多人在微博做虚拟资料能卖出很大规模。\n- **可执行动作：**把 5 个产品拆成 5 组公开案例：开发目标、上线过程、数据、失败点、下一步；同步设计“教你做一个小程序”的低价课程和资料包。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "linyi", "path": "members/linyi.md", "title": "林奕｜多方向 AI 创业选择", "group": "member", "tags": ["member", "职业培训-AI"], "body": "# 林奕｜多方向 AI 创业选择\n\n> **一句话定位：**职业培训/AI，当前阶段是 **渠道验证**。\n\n## 当前卡点\n\nPPT、微软服务、职业培训、工具产品多方向分散\n\n## 会后第一动作\n\n优先调研 AI 职业培训证书和地方渠道分润\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | 职业培训/AI |\n| 阶段 | 渠道验证 |\n| 优先级 | 中 |\n\n## 原文整理\n\n- **项目背景：林奕**有 10 年营销经验，现在围绕电商 B 端做 AI 协同培训，手里有四个方向：PPT 培训、微软企业应用服务、大学生 AI 职业培训、AI 工具产品。\n- **核心卡点：**方向都能做，但优先级不清楚。信息差看起来没有想象中大，担心投入之后变成普通培训或普通服务。\n- **主持人判断：**优先做大学生 AI 职业就业培训，尤其是三四线城市。很多地方 AI 人才几乎为零，向下输送人才是一个更大的市场。\n- **资质路径：**建议想办法对接人社部或相关渠道，拿到职业培训、证书或就业相关资质。证书不只是纸面证明，而是培训成交和渠道合作的信任锚点。\n- **合作模式：**可以找线下渠道伙伴分润。林奕负责交付，渠道负责获客；只要保本并给渠道足够高的利润，就能快速铺量。\n- **可执行动作：**列出大学生 AI 职业培训产品线：课程、证书、就业方向、渠道政策、分润比例；先找 3 个地方渠道验证，不急着同时推进四个方向。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "lixia-victoria", "path": "members/lixia-victoria.md", "title": "立夏（Victoria）｜减肥营养品私域流量", "group": "member", "tags": ["member", "大健康-私域"], "body": "# 立夏（Victoria）｜减肥营养品私域流量\n\n> **一句话定位：**大健康/私域，当前阶段是 **流量再增长**。\n\n## 当前卡点\n\n私域已有一波，缺新流量和团长渠道\n\n## 会后第一动作\n\n成长号和营养号并行，招募宝妈团长和读书群主\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | 大健康/私域 |\n| 阶段 | 流量再增长 |\n| 优先级 | 高 |\n\n## 原文整理\n\n- **项目背景：**立夏做减肥营养品，后端配套营养管理师和心理咨询。私域流量已经做过一波，现在缺新流量，同时纠结做健康 IP 还是女性成长 IP。\n- **核心卡点：**不是没有产品和服务，而是前端新流量不足，且内容定位容易在“健康功能”和“女性成长”之间摇摆。\n- **主持人判断：**两个 IP 可以同时做，不必二选一。健康功能负责产品转化，女性成长负责信任和情绪连接。内容不用过度制作，每天拍 10 秒到 2 分钟的真实内容，加一键字幕就发。\n- **流量拓展：**重点找快团团宝妈团长、读书群主、同仁堂这类品牌代理群体。很多群主为爱发电但渴望赚钱，只要给够分润，就可能帮你带来精准减肥用户。\n- **流量框架：**电商流量只有四类：自然搜索流量、硬广、活动、站外。硬广投不了、活动上不去，就聚焦自然内容和站外团长，不要分散。\n- **可执行动作：**搭建两套内容日历；建立团长招募表和分润规则；把私域承接设计成“减肥评估、营养方案、陪跑服务、产品复购”的路径。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "qingtian", "path": "members/qingtian.md", "title": "晴天｜野路子创业者赛道选择", "group": "member", "tags": ["member", "流量-AI代做"], "body": "# 晴天｜野路子创业者赛道选择\n\n> **一句话定位：**流量/AI代做，当前阶段是 **选赛道**。\n\n## 当前卡点\n\n会打流量但后端业务未锁定\n\n## 会后第一动作\n\n上架 5 个 AI 代做服务，闲鱼/小红书/本地群测试\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | 流量/AI代做 |\n| 阶段 | 选赛道 |\n| 优先级 | 高 |\n\n## 原文整理\n\n- **项目背景：**晴天做野路子项目多年，用 RPA 搬运做过百万粉丝儿童英语号，在三线城市拿到免费创业孵化场地，也做过本地小红书搭子群，现在想做 AI 企服。\n- **核心能力：**主持人判断，晴天的核心能力是打流量。无论做什么项目，只要能把流量能力迁移到后端产品，就有机会。\n- **赛道建议：**如果家里没有稳定现成生意，就选自己会的流量相关赛道。可以做 AI 代做一切，比如代做 Excel、代做网站、代做图、代做资料。闲鱼上这类需求非常旺盛，客单价从几元到几千元都有。\n- **AI 定位：**对普通人来说，AI 是工具，不是战场。如果不想靠 AI 技术本身赚钱，就用 AI 赋能原来擅长的项目，不必追逐概念。\n- **可执行动作：**建立“AI 代做服务货架”，先上闲鱼、小红书、本地群，测试 Excel、网站、PPT、海报、资料整理等品类；用孵化场地做线下小课，筛选高客单需求。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "qingzai", "path": "members/qingzai.md", "title": "清仔｜跨境 AI 企服定价与长期变现", "group": "member", "tags": ["member", "AI企服-跨境"], "body": "# 清仔｜跨境 AI 企服定价与长期变现\n\n> **一句话定位：**AI企服/跨境，当前阶段是 **定价放大**。\n\n## 当前卡点\n\n已成交但定价和长期 MSP 路径不清晰\n\n## 会后第一动作\n\n把已成交项目包装成案例，设计三档报价\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | AI企服/跨境 |\n| 阶段 | 定价放大 |\n| 优先级 | 高 |\n\n## 原文整理\n\n- **项目背景：**清仔是大厂产品经理出身，出来创业做跨境 AI 企服，已经完成交付订单，并与泽龙合作。当前卡点是定价模糊，缺少长期低成本变现路径。\n- **定价方法：**主持人给了三种定价逻辑：第一，估算工时后乘以 4；第二，直接报自己心里想要的价格，看客户是否接受；第三，参考竞品报价。早期不必追求完美定价，要通过真实客户反馈不断校准。\n- **可视化溢价：**PPT 做得越可视化、越能让老板看懂，报价越可以高。企服客户往往不是为“技术”买单，而是为“我看见你理解我的生意，并能给我结果”买单。\n- **现场案例：**主持人展示自己给线下商家做的调研 PPT，用公开的美团、高德数据，一个晚上做完整南京商圈调研 PPT，最终报价 30 多万成交。这个案例说明，公开数据加可视化分析，只要击中老板需求，也能形成高客单服务。\n- **长期方向：**MSP 管理服务输出是很好的长期方向。一旦打透一个行业，案例会滚动带来新客户，交付边际成本越来越低。\n- **可执行动作：**把现有交付订单包装成案例，包括客户背景、问题、交付物、效果、报价逻辑；设计三个服务档位；选择一个跨境细分行业做深，不要频繁换客户类型。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "qiyin", "path": "members/qiyin.md", "title": "启茵｜香港港漂垂直 IP 项目", "group": "member", "tags": ["member", "自媒体-IP"], "body": "# 启茵｜香港港漂垂直 IP 项目\n\n> **一句话定位：**自媒体/IP，当前阶段是 **MVP**。\n\n## 当前卡点\n\n香港 IP 容易自嗨，真实港漂刚需和私域承接未跑通\n\n## 会后第一动作\n\n先不做小程序，连续测试租房、换汇、开户、求职等 30 条内容\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | 自媒体/IP |\n| 阶段 | MVP |\n| 优先级 | 高 |\n\n## 原文整理\n\n- **项目背景：**启茵原来做公众号垂直小号搜索流量，现在想做港式粤语工具型 IP，服务每年约 10 万从内地到香港的港漂，目标两个月跑出最小 MVP。设想路径是通过公众号获取精准流量，再转化到小程序变现。\n- **核心卡点：**卡点在于搜索流量转化、产品设计和 IP 定位。当前方案容易陷入“我觉得港漂需要粤语工具”的自嗨视角，但还没有足够清楚地回答：港漂真正的高频刚需是什么，谁会为此付钱，怎么承接私域。\n- **主持人判断：**建议放弃以小程序为主路径，直接做流量加私域。现在小程序日活维护难度很高，即使短期有一波流量，也很难稳定留存。做工具并不等于做生意，尤其在用户需求没有验证前，先开发小程序会加重负担。\n- **真实需求：**港漂更关心的是租房、换汇、开户、保险、求职、灵活用工、务工收入、身份与福利、本地生活避坑等具体内容。比如香港监狱长什么样、香港老人怎么领保险、去香港洗盘子能赚多少钱、香港无人知道的老店，这类内容比泛泛讲粤语更有传播力。\n- **对标打法：**参考“老吴懂澳门”和王可乐的地域打法。王可乐能把同一套地域模板讲很多遍，每篇都可能千万播放，说明地域内容的关键不是优雅，而是模板、情绪、具体信息和持续重复。\n- **命名建议：**“启茵懂香港”不一定是最直接的名称。主持人建议可以更简单，比如“香港通”；或者用“说、讲、聊、教”这类更常见的动作词。名字不是最核心，关键是能否迅速让用户知道你解决什么问题。\n- **可执行动作：**先不开发小程序，连续做 30 条港漂刚需内容，按租房、换汇、开户、保险、求职五类测试；每条内容引导进私域；私域里测试资料包、咨询、办事清单、资源对接等付费产品。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "ruanzi-ruandafan", "path": "members/ruanzi-ruandafan.md", "title": "阮子（阮大范）｜小红书百货与 POD 定制方向", "group": "member", "tags": ["member", "小红书电商-POD"], "body": "# 阮子（阮大范）｜小红书百货与 POD 定制方向\n\n> **一句话定位：**小红书电商/POD，当前阶段是 **爆品验证**。\n\n## 当前卡点\n\n标签混乱，POD 周期过长\n\n## 会后第一动作\n\n先多账号做小红书百货卖货，爆文后再考虑 POD\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | 小红书电商/POD |\n| 阶段 | 爆品验证 |\n| 优先级 | 中 |\n\n## 原文整理\n\n- **项目背景：**阮子（阮大范）做了多年设计，今年离职创业，做小红书卖货，也想做 AI 加设计的 POD 定制和东南亚出海。卡点是账号标签乱，不知道如何验证 POD。\n- **主持人判断：**先赚钱，再做 POD。POD 是高手玩的，周期长，普通人很容易熬不起。她有设计审美优势，先把小红书百货卖货跑通更现实。\n- **小红书打法：**多开几个号，天天选品、天天发。主持人判断，只要坚持 60 到 80 天，一定会爆一篇；爆一篇就可能赚 2 到 4 万。\n- **POD 条件：**如果有 20 万以上预算、能扛 3 到 6 个月不盈利，可以尝试赶圣诞节之前做起来；如果存款少，不建议碰，先做小红书赚钱再投资。\n- **出海建议：**东南亚可以先试 TikTok，不行再换平台，多尝试总能找到机会。\n- **可执行动作：**先建立多账号矩阵和选品表，按爆率而非个人偏好选品；POD 作为第二阶段，设置明确预算和止损线。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "sheriff-learning-committee", "path": "members/sheriff-learning-committee.md", "title": "学习委员警长分享｜联合办公的隐性收益", "group": "member", "tags": ["member", "社群角色"], "body": "# 学习委员警长分享｜联合办公的隐性收益\n\n> **一句话定位：**社群角色，当前阶段是 **资源链接**。\n\n## 当前卡点\n\n多数人低估社群角色带来的项目信息密度\n\n## 会后第一动作\n\n承担社群服务角色，增加深聊与项目样本\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | 社群角色 |\n| 阶段 | 资源链接 |\n| 优先级 | 中 |\n\n## 原文整理\n\n- **分享背景：**学习委员警长分享自己在联合办公和社群角色中的收获。\n- **核心价值：**当了学习委员警长之后，所有新进来的人都会主动找你聊天。两个月就能深度链接几十位创业者，快速获得大量项目体感，并帮助自己找到方向。\n- **面试收益：**负责新人面试，一周能对接七八个创业者，一小时就能拿到七八份核心经验。信息密度非常高，可以快速了解不同项目的真实情况。\n- **组织机会：**现场提到还需要生活委员和活动委员，欢迎报名，并有激励奖励。这个信息说明，社群角色本身也是一种资源入口。\n- **可执行动作：**如果希望快速建立创业体感和人脉，不要只做普通参与者，可以主动承担社群角色，通过服务换连接和信息密度。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "wenhu-tiger", "path": "members/wenhu-tiger.md", "title": "文虎Tiger （文虎）｜AI 加英语学习视频站", "group": "member", "tags": ["member", "出海网站-内容"], "body": "# 文虎Tiger （文虎）｜AI 加英语学习视频站\n\n> **一句话定位：**出海网站/内容，当前阶段是 **轻量试错**。\n\n## 当前卡点\n\n视频制作效率和 APP 维护方向容易过重\n\n## 会后第一动作\n\n拆 20 个英语学习爆款分镜，用网站 SEO 和广告轻量验证\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | 出海网站/内容 |\n| 阶段 | 轻量试错 |\n| 优先级 | 中 |\n\n## 原文整理\n\n- **项目背景：**文虎Tiger 原来做网站，现在想做 AI 生成英语学习短视频，也想拓展财务、数据、法律等领域人脉，卡点是视频制作效率和资源匹配。\n- **主持人判断：**现阶段更适合专注网站，不建议做 APP。APP 维护日活和留存很难，而网站可以围绕关键词拿谷歌流量，靠广告变现，顺便带货，试错更加灵活。\n- **工具替代建议：**如果只是想找律师、财务资源，很多问题可以先用 Claude、GPT 解决，再做交叉验证。AI 对大多数普通法律、财务、政策问题的初步处理能力已经很强，甚至能处理一些复杂地方性规则的资料整理。\n- **内容制作方法：**找近 2 到 3 个月新起号、播放量高的对标账号，收集二三十个爆款，拆解分镜、钩子、画面结构和脚本，再让 AI 生成图组或短视频素材。\n- **可执行动作：**建立英语学习关键词库，先做 SEO 页面和视频内容同步测试；每周拆 10 个新起号爆款；用 AI 生成图组，配合短视频平台分发，再把流量导回网站。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "xiaoyan", "path": "members/xiaoyan.md", "title": "萧炎｜油管、工具项目与招人", "group": "member", "tags": ["member", "油管-视频号"], "body": "# 萧炎｜油管、工具项目与招人\n\n> **一句话定位：**油管/视频号，当前阶段是 **SOP搭建**。\n\n## 当前卡点\n\n内容做不过来，招人与标准化犹豫\n\n## 会后第一动作\n\n用 6000 元预算做 10 天日结助理试岗\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | 油管/视频号 |\n| 阶段 | SOP搭建 |\n| 优先级 | 中 |\n\n## 原文整理\n\n- **项目背景：萧炎**做油管音乐赛道，也做了抖音直播间转播油管的工具，已经有人购买。现在内容做不过来，不知道要不要招人和如何标准化。\n- **招人建议：**直接招人。6000 元月薪试错成本不高，可以试 3 个人，能做就留下，不能做就换。早点把 SOP 跑出来，自己才能腾出时间研究变现。\n- **公众号内容：**所有爆款文章都可以用 AI 改写，保留核心目的。自己只需要加配图、表情、排版和判断，把“灵魂”注入进去，节省大量内容生产时间。\n- **变现建议：**腾出手之后研究 YouTube 挂链接导私域、接亚马逊商家推广、卖服务器、卖空间、卖会员等变现方式。\n- **可执行动作：**列出助理可接手的 10 个任务，设计 10 天试岗 SOP；同时做 YouTube 导私域和商家推广的变现清单。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "xiaoyao", "path": "members/xiaoyao.md", "title": "逍遥｜AI 数据服务、企业培训与社群", "group": "member", "tags": ["member", "AI企服-案例库"], "body": "# 逍遥｜AI 数据服务、企业培训与社群\n\n> **一句话定位：**AI企服/案例库，当前阶段是 **产品化**。\n\n## 当前卡点\n\n案例展示和变现路径不够产品化\n\n## 会后第一动作\n\n做手机端行业案例库，用安卓和苹果测试可读性\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | AI企服/案例库 |\n| 阶段 | 产品化 |\n| 优先级 | 高 |\n\n## 原文整理\n\n- **项目背景：**逍遥做 AI 企业服务和 AI 培训，想在线下做社群，已经拿到首批种子用户。目标是通过案例展示和社群服务完成变现。\n- **核心卡点：**案例展示不够强，变现路径还需要产品化。客户不是看不懂 AI，而是看不到“我为什么要买、买了有什么结果”。\n- **手机端展示要求：**所有案例展示都必须适配手机端。主持人特别提醒，要同时用安卓和苹果两台手机测试效果，字体足够大，不能让客户定睛看才看清楚。企服展示很多时候发生在微信和手机里，移动端体验就是成交体验。\n- **可视化要求：**可视化要做到极致。科技感版本可参考特斯拉官网、苹果官网；面向更传统客户时，也可以参考国内樊定娟、麦积地板等更接地气的网站。不同客户需要不同审美，不要一套页面打天下。\n- **案例产品化：**把分类好的行业案例做成虚拟产品售卖，一个行业包卖一次，多行业可组合销售。案例库既是交付物，也是获客物料和成交工具。\n- **可执行动作：**按行业做案例库目录，例如电商、工厂、教育、本地生活、服务业；每个行业至少包含痛点、AI 方案、工具清单、效果展示、报价建议；先做一个手机端标杆版本。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "xincheng", "path": "members/xincheng.md", "title": "新城｜AI 提效工具与运营课程", "group": "member", "tags": ["member", "AI企服-培训"], "body": "# 新城｜AI 提效工具与运营课程\n\n> **一句话定位：**AI企服/培训，当前阶段是 **获客验证**。\n\n## 当前卡点\n\n代做和工具产品之间摇摆，企培成交物料不足\n\n## 会后第一动作\n\n做企业提效演示包和五件套，去产业带地推\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | AI企服/培训 |\n| 阶段 | 获客验证 |\n| 优先级 | 高 |\n\n## 原文整理\n\n- **项目背景：**该创业者做 AI 提效工具，包括 AI 作图、AI 流程优化，同时把创业经验打包成运营课程，面向企业客户做培训或提效服务。\n- **核心卡点：**企业客户获客难，产品还需要优化。当前容易在“代做服务”和“工具产品”之间摇摆，不知道如何标准化。\n- **主持人判断：**方向应从标准化工具产品切入，弱化纯代做交付。代做容易消耗个人时间，工具和课程才有复制空间。最终可在线下开 9800 元/人的手把手小班，靠线下高客单赚钱。\n- **获客方式：**To B 获客最快的方式是地推，尤其是佛山、中山等产业带。带着电脑上门给工厂老板演示，用客户看得懂的场景展示 AI 如何省人、省时间、提升内容和流程效率。\n- **物料要求：**必须准备五件套：海报、长图、PDF、H5、短视频。企服不是光靠口头说明，视觉化越充分，客户越容易相信你能交付。\n- **可执行动作：**做一个标准工具演示包，选 3 个工厂场景：产品图生成、客服回复、内部知识库；配套五件套物料；设定 9800 元线下小班课和企业内训报价，先用地推验证。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "yejie", "path": "members/yejie.md", "title": "业杰｜抖音擦边投放方向选择", "group": "member", "tags": ["member", "投放-视频号"], "body": "# 业杰｜抖音擦边投放方向选择\n\n> **一句话定位：**投放/视频号，当前阶段是 **红利测试**。\n\n## 当前卡点\n\n知识付费消耗，学员投不出结果\n\n## 会后第一动作\n\n测试视频号深夜投放和真人口播素材\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | 投放/视频号 |\n| 阶段 | 红利测试 |\n| 优先级 | 高 |\n\n## 原文整理\n\n- **项目背景：**业杰创业 10 年，一直做抖音带货，踩中过很多红利。现在做减肥千川投放，自己能赚钱，但学员大部分投不出来，知识付费收入下滑。\n- **主持人判断：**不要继续做团长，也不要把重点放在知识付费。既然自己能通过投放赚钱，就应回到最直接的赚钱业务上。\n- **方向建议：**纯做擦边投放，解决账号问题就能持续赚钱。视频号当前有红利，深夜擦边投放监管相对松，应尽快去视频号做。小红书也可以做擦边流量，劳务市场就能找到人做号，不怕封号，流量价值甚至比抖音更高。\n- **操作重点：**黑五类或擦边类产品不要过度依赖 AI 视频，真人口播更有效。这个方向核心不是内容高级，而是账号、素材、投放、风控和迭代速度。\n- **可执行动作：**建立视频号深夜投放测试计划；同时招募真人口播和做号人员；记录每个账号的素材、封号、转化和利润，形成投放 SOP。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "yuanye", "path": "members/yuanye.md", "title": "袁野｜纸巾电商供应链新方向", "group": "member", "tags": ["member", "电商供应链"], "body": "# 袁野｜纸巾电商供应链新方向\n\n> **一句话定位：**电商供应链，当前阶段是 **规模延展**。\n\n## 当前卡点\n\n纸巾电商利润低，担心项目周期\n\n## 会后第一动作\n\n用 8000 万业绩背书做平台 BD 和出海小组\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | 电商供应链 |\n| 阶段 | 规模延展 |\n| 优先级 | 高 |\n\n## 原文整理\n\n- **项目背景：**袁野做纸巾电商，全平台年销 8000 万，自己有工厂，电商板块纯利 2 到 3 个点，工厂利润不错。现在居安思危，想找新的项目方向。\n- **资源判断：**8000 万业绩本身就是资源。主持人建议可对接平台小二，做产业带中介，帮园区里的厂家对接平台资源，一年赚小几百万并不难。\n- **长期方向：**一定要出海，不出海就出局。用现有利润养新事业部，去做亚马逊、TK 小店、Temu 等新渠道；国内则往私域高端路线走。\n- **趋势判断：**直播电商、短视频电商最终都会回归货架电商，货架电商才是终局。因此既要抓当下平台红利，也要建设长期货架能力。\n- **可执行动作：**以现有工厂和 8000 万业绩做背书，建立平台 BD 清单；同步启动一个出海小组，用现有利润做亚马逊/TK/Temu 小规模打品测试。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "zelong", "path": "members/zelong.md", "title": "泽龙｜传统跨境电商转 AI 企服", "group": "member", "tags": ["member", "AI企服-跨境"], "body": "# 泽龙｜传统跨境电商转 AI 企服\n\n> **一句话定位：**AI企服/跨境，当前阶段是 **转型验证**。\n\n## 当前卡点\n\n原有跨境资源尚未转成 AI 企服产品入口\n\n## 会后第一动作\n\n给原有电商客户发布 AI 企服服务菜单，拿 3 个样板客户\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | AI企服/跨境 |\n| 阶段 | 转型验证 |\n| 优先级 | 高 |\n\n## 原文整理\n\n- **项目背景：**泽龙有 4 年跨境电商经验，积累了大量电商供应链资源。当前有两个方向：一是 TK 宠物用品店全托管，二是和清仔合作探索 AI 企业服务和定制化工具。\n- **核心卡点：**原有资源很丰富，但不知道如何直接转化到 AI 企服新方向上。也就是说，有客户、有供应链、有行业体感，但缺少一个能被客户理解和购买的 AI 服务入口。\n- **主持人判断：**泽龙并不是从零开始。原有电商客户、人脉和供应链资源都可以复用，转型断层比普通创业者小很多。关键是要“喊出来”自己正在做 AI 企服，让原来的圈子知道你能解决新问题，转介绍就会自然出现。\n- **具体切入：**先从电商客户最容易理解的小工具做起，例如 AI 生成图片、自动回复机器人、全链路自动化知识库、ERP、OA、SCRM、商品素材处理、客服 SOP 等。不要一上来讲一个很大的系统，而要先解决一个客户愿意试的具体问题。\n- **可执行动作：**整理一份面向跨境电商老板的服务菜单，列出“问题、AI 方案、交付物、节省时间、报价”；在原有客户群、供应链群、朋友圈明确发布业务切换信息；优先拿 3 个样板客户，形成案例后再放大。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "zhangwei-david", "path": "members/zhangwei-david.md", "title": "张玮（David）｜工厂出海数字化服务获客", "group": "member", "tags": ["member", "工厂出海-企服"], "body": "# 张玮（David）｜工厂出海数字化服务获客\n\n> **一句话定位：**工厂出海/企服，当前阶段是 **标杆客户**。\n\n## 当前卡点\n\n老板担心效果，交付路径长\n\n## 会后第一动作\n\n不承诺增长，做行业案例 iPad 展示包和内容交付报价\n\n## 诊断标签\n\n| 字段 | 内容 |\n|------|------|\n| 赛道 | 工厂出海/企服 |\n| 阶段 | 标杆客户 |\n| 优先级 | 高 |\n\n## 原文整理\n\n- **项目背景：**张玮（David）在佛山对接工厂老板，帮助工厂做海外账号内容运营。老板有需求，也愿意付费，但担心交付效果，交付路径较长。\n- **交付建议：**不要承诺增长，只承诺交付内容。比如多少钱做多少条视频、多少个账号、多少次优化，按交付物收费，不包增长效果。这样能降低老板预期，也降低自己风险。\n- **谈单准备：**提前按行业整理参考案例，放在 iPad 里，谈单时直接展示。着装可以走潮酷西海岸风格，与传统服务商形成反差，让老板觉得你不一样。\n- **获客路径：**先攻下一个标杆案例，再用这个案例开发同行业其他客户。不要一开始铺很多客户，工厂服务需要案例背书。\n- **可执行动作：**选定一个细分行业，整理 20 个海外账号案例、10 条视频模板、30 天交付计划和报价表；用一个标杆客户打穿，再做同行业复制。\n\n## 相关页面\n\n- [[project-map]]\n- [[sector-matrix]]\n- [[action-dashboard]]", "updated": "2026-05-21"}, {"route": "action-dashboard", "path": "analysis/action-dashboard.md", "title": "执行仪表盘", "group": "analysis", "tags": ["action", "dashboard"], "body": "# 执行仪表盘\n\n> 会议价值不在“听完很爽”，而在一周后有没有真实动作。\n\n## 会议待办\n\n- **01:00:19｜资料群内分享（资料群/全员）：**将朋友圈的图和五件套发到群里，五件套包括多维表格、思维导图、海报、长图、PDF、H5 或短视频等可视化物料。\n- **01:07:17｜证书查询（林奕）：**查询人社部相关证书，确认是否能结合 AI 职业培训开展发证业务。\n- **02:10:21｜成交路径分析（阿苏（巴聪）/跨境电商成员）：**针对亚马逊店铺画出曝光、点击、详情、询单、下单路径，逐节点计算提升空间。\n- **02:21:15｜心法分享（主持人/全员）：**将做生意的心法发送到群里，供跨境、电商和企服成员复盘。\n- **03:34:51｜账号改名（阮子（阮大范））：**小红书账号名字改为阮阮、阮小仙或阮大范一类更有记忆点的名称。\n- **03:45:49｜招聘助理尝试（萧炎）：**用 6000 元/月预算试 3 人，每人 10 天日结，完成 Claude 内容系统搭建和维护。\n- **04:25:47｜视频号尝试（业杰等视频号成员）：**刷直播、拆案例、感受视频号玩法，以真人口播形式测试内容和投放。\n\n## 7 天行动建议\n\n- **第 1 天：**每个人重写自己的 30 秒介绍，发到群里，接受别人是否听懂的反馈。\n- **第 2 天：**列出自己的目标客户、客户痛点、交付物、报价和获客渠道，不超过一页。\n- **第 3 天：**做一个最小可展示物料，可能是一页 PPT、一张长图、一个 H5、一条短视频或一个案例页。\n- **第 4 天：**找 5 个真实潜在客户沟通，不以成交为唯一目标，重点收集对方听不懂、质疑和愿意付费的部分。\n- **第 5 天：**根据反馈修改产品表达、报价和案例展示。\n- **第 6 天：**发布第一轮公开内容或私域招募，明确告诉别人你现在提供什么服务。\n- **第 7 天：**复盘一周数据：沟通人数、有效线索、询价人数、成交金额、最常见问题、下一步动作。", "updated": "2026-05-21"}, {"route": "project-map", "path": "analysis/project-map.md", "title": "项目地图", "group": "analysis", "tags": ["project-map", "visual"], "body": "# 项目地图\n\n> 这一页把成员按赛道、阶段、卡点和下一步放到同一张地图里。它回答的问题是：谁在做什么，卡在哪里，应该先做什么。\n\n```mermaid\nflowchart LR\n  A[AI 企服] --> A1[泽龙 / 新城 / 逍遥 / 清仔 / 张玮]\n  B[流量与自媒体] --> B1[启茵 / 大道 / link / 立夏 / 阿冰]\n  C[电商与跨境] --> C1[阿苏 / 袁野 / 阮子 / 文虎Tiger / JOJO]\n  D[短视频与投放] --> D1[萧炎 / 陈澄 / 业杰]\n  E[方法论与协作] --> E1[主持人 / 学习委员 / 资源合作]\n```\n\n## 成员矩阵\n\n| 成员 | 赛道 | 阶段 | 核心卡点 | 下一步 |\n|------|------|------|----------|--------|\n| [[host|主持人]] | 会议方法论 | 组织者 | 帮助创业者把模糊表达拉回客户、需求和成交现场 | 用 30 秒介绍和“谁会付钱”检验每个项目 |\n| [[zelong|泽龙]] | AI企服/跨境 | 转型验证 | 原有跨境资源尚未转成 AI 企服产品入口 | 给原有电商客户发布 AI 企服服务菜单，拿 3 个样板客户 |\n| [[qiyin|启茵]] | 自媒体/IP | MVP | 香港 IP 容易自嗨，真实港漂刚需和私域承接未跑通 | 先不做小程序，连续测试租房、换汇、开户、求职等 30 条内容 |\n| [[xincheng|新城]] | AI企服/培训 | 获客验证 | 代做和工具产品之间摇摆，企培成交物料不足 | 做企业提效演示包和五件套，去产业带地推 |\n| [[xiaoyao|逍遥]] | AI企服/案例库 | 产品化 | 案例展示和变现路径不够产品化 | 做手机端行业案例库，用安卓和苹果测试可读性 |\n| [[wenhu-tiger|文虎Tiger （文虎）]] | 出海网站/内容 | 轻量试错 | 视频制作效率和 APP 维护方向容易过重 | 拆 20 个英语学习爆款分镜，用网站 SEO 和广告轻量验证 |\n| [[qingzai|清仔]] | AI企服/跨境 | 定价放大 | 已成交但定价和长期 MSP 路径不清晰 | 把已成交项目包装成案例，设计三档报价 |\n| [[linyi|林奕]] | 职业培训/AI | 渠道验证 | PPT、微软服务、职业培训、工具产品多方向分散 | 优先调研 AI 职业培训证书和地方渠道分润 |\n| [[lixia-victoria|立夏（Victoria）]] | 大健康/私域 | 流量再增长 | 私域已有一波，缺新流量和团长渠道 | 成长号和营养号并行，招募宝妈团长和读书群主 |\n| [[dadao|大道]] | AI自媒体 | 冷启动 | 平台选择和变现路径不清 | 一个主题拆成 10 种形态分发，先到 5000 粉 |\n| [[link|link]] | AI应用/自媒体 | 公开记录 | 产品数据不好时不敢公开，产品和内容割裂 | 用创业实验室定位公开 5 个产品过程和数据 |\n| [[qingtian|晴天]] | 流量/AI代做 | 选赛道 | 会打流量但后端业务未锁定 | 上架 5 个 AI 代做服务，闲鱼/小红书/本地群测试 |\n| [[asu-bacong|阿苏（巴聪）]] | 跨境电商 | 组织升级 | 成熟业务、AI 学习、选品和团队建设分散精力 | 固定面试节奏，建立异常爆品 AI 选品 SOP |\n| [[zhangwei-david|张玮（David）]] | 工厂出海/企服 | 标杆客户 | 老板担心效果，交付路径长 | 不承诺增长，做行业案例 iPad 展示包和内容交付报价 |\n| [[abing|阿冰]] | 自媒体/快钱 | 现金流修复 | 自媒体不敢变现，长期没正反馈 | 先做可控快钱，同时推出个人使用说明书 H5 样板 |\n| [[yuanye|袁野]] | 电商供应链 | 规模延展 | 纸巾电商利润低，担心项目周期 | 用 8000 万业绩背书做平台 BD 和出海小组 |\n| [[chenxi-cenxi|晨曦（岑奚）]] | 虚拟产品 | 换品验证 | 测试粉流量价值和客户价值偏低 | 两天全平台找 10 个高价值模板，开两个号测试 |\n| [[ruanzi-ruandafan|阮子（阮大范）]] | 小红书电商/POD | 爆品验证 | 标签混乱，POD 周期过长 | 先多账号做小红书百货卖货，爆文后再考虑 POD |\n| [[xiaoyan|萧炎]] | 油管/视频号 | SOP搭建 | 内容做不过来，招人与标准化犹豫 | 用 6000 元预算做 10 天日结助理试岗 |\n| [[jojo|JOJO]] | 跨境重启 | 从零掌控 | 财务代账不适合，跨境全托缺主动权 | 注册平台账号并自己跑第一批小单 |\n| [[chencheng|陈澄]] | 短视频/CPS | 产品闭环 | 有内容能力但缺后端产品，长视频反馈慢 | 选一个能承接流量的 CPS 或本地服务产品 |\n| [[yejie|业杰]] | 投放/视频号 | 红利测试 | 知识付费消耗，学员投不出结果 | 测试视频号深夜投放和真人口播素材 |\n| [[fei|菲]] | AI出海网站 | 流量优先 | 产品先行但半年没有流量结果 | 70% 精力做关键词、竞品、收录和外链 |\n| [[sheriff-learning-committee|学习委员警长分享]] | 社群角色 | 资源链接 | 多数人低估社群角色带来的项目信息密度 | 承担社群服务角色，增加深聊与项目样本 |\n| [[collaboration-faq|资源合作答疑]] | 资源合作 | 信任验证 | 初识就拆前后端容易稀释核心资源 | 先用小单、牵线提成和转介绍验证协作 |", "updated": "2026-05-21"}, {"route": "sector-matrix", "path": "analysis/sector-matrix.md", "title": "赛道矩阵", "group": "analysis", "tags": ["sector", "matrix"], "body": "# 赛道矩阵\n\n> 赛道矩阵不是为了分类好看，而是为了看清：哪些人可以共享打法，哪些人需要换路径。\n\n## 赛道分布\n\n| 赛道 | 人数 |\n|------|------|\n| AI企服/跨境 | 2 |\n| 会议方法论 | 1 |\n| 自媒体/IP | 1 |\n| AI企服/培训 | 1 |\n| AI企服/案例库 | 1 |\n| 出海网站/内容 | 1 |\n| 职业培训/AI | 1 |\n| 大健康/私域 | 1 |\n| AI自媒体 | 1 |\n| AI应用/自媒体 | 1 |\n| 流量/AI代做 | 1 |\n| 跨境电商 | 1 |\n| 工厂出海/企服 | 1 |\n| 自媒体/快钱 | 1 |\n| 电商供应链 | 1 |\n| 虚拟产品 | 1 |\n| 小红书电商/POD | 1 |\n| 油管/视频号 | 1 |\n| 跨境重启 | 1 |\n| 短视频/CPS | 1 |\n| 投放/视频号 | 1 |\n| AI出海网站 | 1 |\n| 社群角色 | 1 |\n| 资源合作 | 1 |\n\n## 五条主线\n\n```mermaid\nmindmap\n  root((广州创业项目交流会))\n    AI企服\n      电商客户资源\n      工厂老板地推\n      案例库产品化\n      PPT可视化溢价\n    流量与IP\n      港漂刚需\n      多平台分发\n      创业实验室\n      私域承接\n    电商与跨境\n      招人\n      异常爆品\n      产业带BD\n      出海新事业部\n    短视频与投放\n      视频号红利\n      真人口播\n      CPS后端\n      内容SOP\n    现金流项目\n      AI代做\n      虚拟资料\n      个人H5\n      小单验证\n```", "updated": "2026-05-21"}, {"route": "site-configuration", "path": "analysis/site-configuration.md", "title": "站点配置", "group": "config", "tags": ["config", "data"], "body": "# 站点配置\n\n本页对应 `data/site.config.json`。本期配置页是静态只读，不做在线编辑后台。\n\n## 配置范围\n\n- 站点标题、副标题、日期、时长、人数。\n- 来源链接：飞书 Wiki、妙记、GitHub 仓库。\n- 模块开关：项目地图、金句墙、执行仪表盘、Wiki Reader、配置页。\n- 成员分组：AI 企服、流量与自媒体、电商与跨境、短视频与投放、方法论与协作。\n\n## 修改方式\n\n1. 修改 `data/site.config.json`。\n2. 如涉及成员或金句，修改 `data/members.json` 或 `data/quotes.json`。\n3. 运行 `python3 site/build.py`。\n4. 提交并推送。", "updated": "2026-05-21"}, {"route": "timeline", "path": "analysis/timeline.md", "title": "会议时间线", "group": "analysis", "tags": ["timeline"], "body": "# 会议时间线\n\n## 00:00:00｜开场与活动规则介绍\n\n主持人说明本次是试营业后第一次线下深度交流，要求每个人用 30 秒做自我介绍，讲清楚自己是谁、在做什么、合作点是什么。这一规则直接对应创业基本功：如果一个项目不能被快速讲清楚，说明客户、价值和路径还需要重构。主持人也介绍联合办公成本和分享会密度，强调在低成本高密度资源环境里，如果仍然没有产出，就要反思执行问题。\n\n## 00:02:00｜泽龙：传统跨境转 AI 企服\n\n泽龙介绍自己有 4 年跨境电商和供应链资源，希望转 AI 企业服务。主持人指出，他的优势是原有电商客户和人脉，不是从零开始。可从 AI 生图、自动回复、知识库、流程自动化等小工具切入，先给原有客户提供看得懂的服务，再逐步扩展到更复杂的 ERP、OA、SCRM 等系统。\n\n## 00:07:00｜启茵：香港港漂垂直 IP\n\n启茵想做港式粤语工具性 IP，服务港漂。主持人建议放弃小程序主路径，直接做流量导私域；不要自嗨做粤语工具，而要做租房、换汇、开户、求职、保险等刚需内容。对标“老吴懂澳门”和王可乐，找到地域内容模板后持续复制。命名可以更直接，如“香港通”。\n\n## 00:16:00｜新城：工具产品和线下课\n\n该创业者做 AI 提效工具和运营课程，主持人建议弱化代做，做标准化工具走量，最终做 9800 元/人的线下手把手小班。To B 获客最快方式是地推，带着电脑去佛山、中山产业带找工厂老板演示。成交前要准备海报、长图、PDF、H5、短视频五件套。\n\n## 00:23:00｜逍遥：AI 数据服务社群\n\n逍遥做 AI 企业服务和培训，卡点是案例展示和变现。主持人强调手机端展示质量，要求用安卓和苹果测试，字体要大，可视化要极致。行业案例可以做成虚拟产品，按行业打包销售。案例库既是产品，也是获客和成交物料。\n\n## 00:33:00｜文虎Tiger：AI 英语学习视频与网站\n\n文虎Tiger 想做 AI 生成英语学习短视频，并寻找财务、数据领域人脉。主持人建议律师、财务等问题先用 AI 交叉验证；内容制作可拆解近期爆款账号分镜，再让 AI 生成图组。现阶段更适合做网站而不是 APP，用关键词和谷歌广告变现，保持灵活试错。\n\n## 00:45:00｜清仔：跨境 AI 企服定价\n\n清仔已有跨境 AI 企服交付订单，卡在定价和长期变现。主持人给出工时乘以 4、直接报心理价、参考竞品三种方法，并强调 PPT 可视化的溢价。南京商圈调研 PPT 的案例说明，公开数据加高质量分析和展示可以卖到 30 多万。长期方向是 MSP 管理服务输出。\n\n## 01:01:00｜林奕：多 AI 方向选择\n\n林奕有 PPT 培训、微软企业服务、大学生 AI 职业培训、AI 工具产品四个方向。主持人建议优先做大学生 AI 职业就业培训，尤其是三四线城市 AI 人才缺口大。通过人社部相关资质和线下渠道分润，可能更快放量。\n\n## 01:08:00｜立夏：减肥营养品新流量\n\n立夏做减肥营养品和后端服务，私域流量做完一波。主持人建议健康 IP 和女性成长 IP 同时做，每天拍短内容，不用复杂剪辑。新流量重点找快团团宝妈团长、读书群主、品牌代理群体。电商流量聚焦自然内容和站外团长两个方向。\n\n## 01:23:00｜大道：AI 自媒体多平台选择与变现\n\n大道纠结平台和变现。主持人建议所有平台都做，一个内容改成 10 种形态分发到 10 个平台。变现路径是先涨粉接广告，再卖虚拟资料，再做知识付费和工具。如果现金流不足，先接 AI 代做快单。\n\n## 01:30:00｜link：AI 开发与自媒体记录\n\nlink 已上线 5 个 APP 和小程序，担心产品数据不好影响自媒体。主持人建议大胆公开所有过程，做“创业实验室”，真实记录数据和情绪，失败也能获得信任。可教人做小程序、网站、小工具，做低价课程；微博也是值得重视的分发平台。\n\n## 01:44:00｜晴天：野路子创业赛道选择\n\n晴天有 RPA 搬运、百万粉丝儿童英语号和本地孵化场地。主持人判断其核心能力是打流量。若无稳定现成生意，可做 AI 代做一切，如代做 Excel、网站、图片、资料。AI 对普通人是工具，不是必须正面竞争的战场。\n\n## 02:04:00｜阿苏（巴聪）：跨境多业务精力分配\n\n阿苏（巴聪）已有八位数跨境业务，同时学 AI、提升选品和搭团队。主持人建议把核心精力放在招人上，并用 AI 抓跨平台异常爆品做微创新。跨境成功要做到“多快好省”，其中成本控制最难，需要行业积累。\n\n## 02:26:00｜张玮（David）：工厂出海服务获客\n\n张玮（David）帮佛山工厂做海外账号内容运营，老板担心效果。主持人建议不承诺增长，只承诺内容交付，用 iPad 展示行业案例，打造潮酷反差形象。先拿一个标杆案例，再开发同行业客户。\n\n## 02:36:00｜阿冰：自媒体与擦边跨境选择\n\n阿冰自媒体尚未变现，跨境有擦边项目可赚钱。主持人建议如果不用自己身份、只拿提成，可以先做快钱滋养心力。长期可做个人使用说明书 H5 定制，微商、知识付费和企服老板都有需求。\n\n## 02:47:00｜袁野：纸巾电商新方向\n\n袁野纸巾电商年销 8000 万，有工厂。主持人建议利用业绩和工厂资源对接平台小二，做产业带中介；长期一定要出海，用现有利润养亚马逊、TK 小店、Temu 等新事业部。直播和短视频电商最终会回归货架电商。\n\n## 03:04:00｜晨曦（岑奚）：小红书虚拟产品流量\n\n晨曦（岑奚）做性格测试类虚拟产品，流量越来越差。主持人指出测试粉流量价值和客户终身价值低，建议全平台找模板和项目，闲鱼、微信、B 站、抖音、美团都可以测试。两天内全平台搜索，找到有感觉的项目，开两个号直接干。\n\n## 03:28:00｜阮子（阮大范）：小红书百货与 POD\n\n阮子（阮大范）有设计审美，想做小红书卖货、POD 和东南亚出海。主持人建议先做小红书卖货，60 到 80 天坚持有机会爆一篇。POD 周期长、资金要求高，有 20 万以上预算并能扛半年才考虑；否则先赚钱再做。\n\n## 03:38:00｜萧炎：油管与招人\n\n萧炎做油管音乐和转播工具，内容做不过来。主持人建议直接招人，用 6000 元月薪测试 3 人，尽快跑出 SOP。公众号内容可用 AI 改写爆款，再由自己加配图、表情和判断。腾出手后研究 YouTube 导私域、推广和会员等变现。\n\n## 03:50:00｜JOJO：财务转跨境\n\nJOJO 做了 10 年财务，做过 Shein 跨境全托。主持人建议如果没有 400 家稳定续存客户，不要做代账。跨境也不要继续全托，要自己走一遍流程，注册平台账号、看教程、小单测试，掌握主动权。\n\n## 04:00:00｜陈澄：短视频流量焦虑\n\n陈澄有 11 年短视频经验，但做油管长视频反馈慢。主持人建议做前端流量加后端产品闭环，不要只有流量没有产品。可以探索 CPS、本地服务、海外玄学等更能承接内容能力的方向。\n\n## 04:09:00｜业杰：擦边投放与视频号\n\n业杰自己投放赚钱，但学员投不出来。主持人建议回归纯擦边投放，不做团长和知识付费。视频号现在有红利，深夜擦边监管相对松，应尽快测试。小红书也可做擦边流量。\n\n## 04:24:00｜菲：AI 出海网站起步\n\n菲做 AI 出海网站半年未拿到流量。主持人建议 70% 精力搞流量，20% 搞产品，10% 做精细化运营。不要先追求完美产品，去看戈飞公众号的免费内容，先上线再迭代。\n\n## 04:28:00｜学习委员警长与资源合作\n\n学习委员警长分享，通过承担社群角色，两个月能深度链接几十位创业者，快速获得项目体感。随后现场讨论资源合作，主持人不建议刚认识就拆前端后端，创业初期应自己跑通全流程。如果有 B 端资源但没有产品，可以牵线现场其他人的产品，拿提成变现。", "updated": "2026-05-21"}, {"route": "golden-quotes", "path": "quotes/golden-quotes.md", "title": "金句墙", "group": "quote", "tags": ["quotes", "share"], "body": "# 金句墙\n\n这些句子适合做成可截图传播的卡片。它们不是装饰，而是把会议里的判断压缩成可记忆的锚点。\n\n> 25 岁以上就不要浪了，不是事业就要么是过渡，要么从项目里挖掘出事业。\n>\n> — 项目选择：判断一件事是否值得长期投入。\n\n> 30 秒内讲不清楚，说明项目还没想明白。\n>\n> — 表达清晰度：创业者先要能把客户、痛点、交付和合作点说清。\n\n> 用户要什么，不是你觉得他要什么，是他真的要什么。\n>\n> — 需求验证：启茵香港 IP 的核心提醒。\n\n> 你如果自己都不知道要赚谁的钱，别人更不知道为什么给你钱。\n>\n> — 商业模型：所有项目都要先定位付费对象。\n\n> AI 对普通人来说是工具，不是战场。\n>\n> — AI 方法论：不要为了追概念而离钱更远。\n\n> 信息差在认知差面前一文不值，认知差在资源差面前一文不值。\n>\n> — 竞争壁垒：从信息到认知再到资源，层级逐步提高。\n\n> 不出海就出局。\n>\n> — 跨境趋势：袁野等电商项目的长期趋势判断。\n\n> 直播电商、短视频电商终将回归货架电商。\n>\n> — 电商趋势：短期红利之后仍要建设货架能力。\n\n> 流量价值和客户价值都低的事情，要尽早换。\n>\n> — 项目筛选：晨曦虚拟测试产品的关键判断。\n\n> 创业初期，既做前端又做后端，这是必经阶段。\n>\n> — 资源合作：不建议刚认识就拆分核心资源。", "updated": "2026-05-21"}, {"route": "2026-05-21-initial-wiki", "path": "changelog/2026-05-21-initial-wiki.md", "title": "初始独立 Wiki 站创建", "group": "changelog", "tags": ["changelog"], "body": "# 初始独立 Wiki 站创建\n\n## 变更\n\n- 从修正后的高信息密度整理稿生成独立 Wiki 仓库。\n- 增加成员页、项目地图、赛道矩阵、时间线、执行仪表盘、金句墙和配置页。\n- 采用静态构建脚本生成 GitHub Pages 站点。", "updated": "2026-05-21"}], "members": [{"slug": "host", "name": "主持人", "title": "主持人｜会议组织者与主要诊断人", "sector": "会议方法论", "stage": "组织者", "bottleneck": "帮助创业者把模糊表达拉回客户、需求和成交现场", "action": "用 30 秒介绍和“谁会付钱”检验每个项目", "priority": "方法论"}, {"slug": "zelong", "name": "泽龙", "title": "泽龙｜传统跨境电商转 AI 企服", "sector": "AI企服/跨境", "stage": "转型验证", "bottleneck": "原有跨境资源尚未转成 AI 企服产品入口", "action": "给原有电商客户发布 AI 企服服务菜单，拿 3 个样板客户", "priority": "高"}, {"slug": "qiyin", "name": "启茵", "title": "启茵｜香港港漂垂直 IP 项目", "sector": "自媒体/IP", "stage": "MVP", "bottleneck": "香港 IP 容易自嗨，真实港漂刚需和私域承接未跑通", "action": "先不做小程序，连续测试租房、换汇、开户、求职等 30 条内容", "priority": "高"}, {"slug": "xincheng", "name": "新城", "title": "新城｜AI 提效工具与运营课程", "sector": "AI企服/培训", "stage": "获客验证", "bottleneck": "代做和工具产品之间摇摆，企培成交物料不足", "action": "做企业提效演示包和五件套，去产业带地推", "priority": "高"}, {"slug": "xiaoyao", "name": "逍遥", "title": "逍遥｜AI 数据服务、企业培训与社群", "sector": "AI企服/案例库", "stage": "产品化", "bottleneck": "案例展示和变现路径不够产品化", "action": "做手机端行业案例库，用安卓和苹果测试可读性", "priority": "高"}, {"slug": "wenhu-tiger", "name": "文虎Tiger （文虎）", "title": "文虎Tiger （文虎）｜AI 加英语学习视频站", "sector": "出海网站/内容", "stage": "轻量试错", "bottleneck": "视频制作效率和 APP 维护方向容易过重", "action": "拆 20 个英语学习爆款分镜，用网站 SEO 和广告轻量验证", "priority": "中"}, {"slug": "qingzai", "name": "清仔", "title": "清仔｜跨境 AI 企服定价与长期变现", "sector": "AI企服/跨境", "stage": "定价放大", "bottleneck": "已成交但定价和长期 MSP 路径不清晰", "action": "把已成交项目包装成案例，设计三档报价", "priority": "高"}, {"slug": "linyi", "name": "林奕", "title": "林奕｜多方向 AI 创业选择", "sector": "职业培训/AI", "stage": "渠道验证", "bottleneck": "PPT、微软服务、职业培训、工具产品多方向分散", "action": "优先调研 AI 职业培训证书和地方渠道分润", "priority": "中"}, {"slug": "lixia-victoria", "name": "立夏（Victoria）", "title": "立夏（Victoria）｜减肥营养品私域流量", "sector": "大健康/私域", "stage": "流量再增长", "bottleneck": "私域已有一波，缺新流量和团长渠道", "action": "成长号和营养号并行，招募宝妈团长和读书群主", "priority": "高"}, {"slug": "dadao", "name": "大道", "title": "大道｜多平台分发与变现", "sector": "AI自媒体", "stage": "冷启动", "bottleneck": "平台选择和变现路径不清", "action": "一个主题拆成 10 种形态分发，先到 5000 粉", "priority": "中"}, {"slug": "link", "name": "link", "title": "link｜AI 开发与自媒体记录平衡", "sector": "AI应用/自媒体", "stage": "公开记录", "bottleneck": "产品数据不好时不敢公开，产品和内容割裂", "action": "用创业实验室定位公开 5 个产品过程和数据", "priority": "高"}, {"slug": "qingtian", "name": "晴天", "title": "晴天｜野路子创业者赛道选择", "sector": "流量/AI代做", "stage": "选赛道", "bottleneck": "会打流量但后端业务未锁定", "action": "上架 5 个 AI 代做服务，闲鱼/小红书/本地群测试", "priority": "高"}, {"slug": "asu-bacong", "name": "阿苏（巴聪）", "title": "阿苏（巴聪）｜跨境电商多业务精力分配", "sector": "跨境电商", "stage": "组织升级", "bottleneck": "成熟业务、AI 学习、选品和团队建设分散精力", "action": "固定面试节奏，建立异常爆品 AI 选品 SOP", "priority": "高"}, {"slug": "zhangwei-david", "name": "张玮（David）", "title": "张玮（David）｜工厂出海数字化服务获客", "sector": "工厂出海/企服", "stage": "标杆客户", "bottleneck": "老板担心效果，交付路径长", "action": "不承诺增长，做行业案例 iPad 展示包和内容交付报价", "priority": "高"}, {"slug": "abing", "name": "阿冰", "title": "阿冰｜自媒体与跨境选择", "sector": "自媒体/快钱", "stage": "现金流修复", "bottleneck": "自媒体不敢变现，长期没正反馈", "action": "先做可控快钱，同时推出个人使用说明书 H5 样板", "priority": "中"}, {"slug": "yuanye", "name": "袁野", "title": "袁野｜纸巾电商供应链新方向", "sector": "电商供应链", "stage": "规模延展", "bottleneck": "纸巾电商利润低，担心项目周期", "action": "用 8000 万业绩背书做平台 BD 和出海小组", "priority": "高"}, {"slug": "chenxi-cenxi", "name": "晨曦（岑奚）", "title": "晨曦（岑奚）｜小红书虚拟产品流量卡点", "sector": "虚拟产品", "stage": "换品验证", "bottleneck": "测试粉流量价值和客户价值偏低", "action": "两天全平台找 10 个高价值模板，开两个号测试", "priority": "中"}, {"slug": "ruanzi-ruandafan", "name": "阮子（阮大范）", "title": "阮子（阮大范）｜小红书百货与 POD 定制方向", "sector": "小红书电商/POD", "stage": "爆品验证", "bottleneck": "标签混乱，POD 周期过长", "action": "先多账号做小红书百货卖货，爆文后再考虑 POD", "priority": "中"}, {"slug": "xiaoyan", "name": "萧炎", "title": "萧炎｜油管、工具项目与招人", "sector": "油管/视频号", "stage": "SOP搭建", "bottleneck": "内容做不过来，招人与标准化犹豫", "action": "用 6000 元预算做 10 天日结助理试岗", "priority": "中"}, {"slug": "jojo", "name": "JOJO", "title": "JOJO｜财务转跨境方向选择", "sector": "跨境重启", "stage": "从零掌控", "bottleneck": "财务代账不适合，跨境全托缺主动权", "action": "注册平台账号并自己跑第一批小单", "priority": "中"}, {"slug": "chencheng", "name": "陈澄", "title": "陈澄｜短视频流量焦虑与事业选择", "sector": "短视频/CPS", "stage": "产品闭环", "bottleneck": "有内容能力但缺后端产品，长视频反馈慢", "action": "选一个能承接流量的 CPS 或本地服务产品", "priority": "高"}, {"slug": "yejie", "name": "业杰", "title": "业杰｜抖音擦边投放方向选择", "sector": "投放/视频号", "stage": "红利测试", "bottleneck": "知识付费消耗，学员投不出结果", "action": "测试视频号深夜投放和真人口播素材", "priority": "高"}, {"slug": "fei", "name": "菲", "title": "菲｜AI 出海网站起步", "sector": "AI出海网站", "stage": "流量优先", "bottleneck": "产品先行但半年没有流量结果", "action": "70% 精力做关键词、竞品、收录和外链", "priority": "高"}, {"slug": "sheriff-learning-committee", "name": "学习委员警长分享", "title": "学习委员警长分享｜联合办公的隐性收益", "sector": "社群角色", "stage": "资源链接", "bottleneck": "多数人低估社群角色带来的项目信息密度", "action": "承担社群服务角色，增加深聊与项目样本", "priority": "中"}, {"slug": "collaboration-faq", "name": "资源合作答疑", "title": "资源合作答疑｜前端后端如何合作", "sector": "资源合作", "stage": "信任验证", "bottleneck": "初识就拆前后端容易稀释核心资源", "action": "先用小单、牵线提成和转介绍验证协作", "priority": "方法论"}], "quotes": [{"quote": "25 岁以上就不要浪了，不是事业就要么是过渡，要么从项目里挖掘出事业。", "theme": "项目选择", "note": "判断一件事是否值得长期投入。"}, {"quote": "30 秒内讲不清楚，说明项目还没想明白。", "theme": "表达清晰度", "note": "创业者先要能把客户、痛点、交付和合作点说清。"}, {"quote": "用户要什么，不是你觉得他要什么，是他真的要什么。", "theme": "需求验证", "note": "启茵香港 IP 的核心提醒。"}, {"quote": "你如果自己都不知道要赚谁的钱，别人更不知道为什么给你钱。", "theme": "商业模型", "note": "所有项目都要先定位付费对象。"}, {"quote": "AI 对普通人来说是工具，不是战场。", "theme": "AI 方法论", "note": "不要为了追概念而离钱更远。"}, {"quote": "信息差在认知差面前一文不值，认知差在资源差面前一文不值。", "theme": "竞争壁垒", "note": "从信息到认知再到资源，层级逐步提高。"}, {"quote": "不出海就出局。", "theme": "跨境趋势", "note": "袁野等电商项目的长期趋势判断。"}, {"quote": "直播电商、短视频电商终将回归货架电商。", "theme": "电商趋势", "note": "短期红利之后仍要建设货架能力。"}, {"quote": "流量价值和客户价值都低的事情，要尽早换。", "theme": "项目筛选", "note": "晨曦虚拟测试产品的关键判断。"}, {"quote": "创业初期，既做前端又做后端，这是必经阶段。", "theme": "资源合作", "note": "不建议刚认识就拆分核心资源。"}], "actions": [{"time": "01:00:19", "owner": "资料群/全员", "title": "资料群内分享", "detail": "将朋友圈的图和五件套发到群里，五件套包括多维表格、思维导图、海报、长图、PDF、H5 或短视频等可视化物料。"}, {"time": "01:07:17", "owner": "林奕", "title": "证书查询", "detail": "查询人社部相关证书，确认是否能结合 AI 职业培训开展发证业务。"}, {"time": "02:10:21", "owner": "阿苏（巴聪）/跨境电商成员", "title": "成交路径分析", "detail": "针对亚马逊店铺画出曝光、点击、详情、询单、下单路径，逐节点计算提升空间。"}, {"time": "02:21:15", "owner": "主持人/全员", "title": "心法分享", "detail": "将做生意的心法发送到群里，供跨境、电商和企服成员复盘。"}, {"time": "03:34:51", "owner": "阮子（阮大范）", "title": "账号改名", "detail": "小红书账号名字改为阮阮、阮小仙或阮大范一类更有记忆点的名称。"}, {"time": "03:45:49", "owner": "萧炎", "title": "招聘助理尝试", "detail": "用 6000 元/月预算试 3 人，每人 10 天日结，完成 Claude 内容系统搭建和维护。"}, {"time": "04:25:47", "owner": "业杰等视频号成员", "title": "视频号尝试", "detail": "刷直播、拆案例、感受视频号玩法，以真人口播形式测试内容和投放。"}], "groups": [{"id": "guide", "label": "导览"}, {"id": "member", "label": "成员诊断"}, {"id": "analysis", "label": "可视化分析"}, {"id": "quotes", "label": "金句传播"}, {"id": "config", "label": "配置"}, {"id": "source", "label": "资料来源"}, {"id": "changelog", "label": "更新记录"}], "sectorCounts": {"会议方法论": 1, "AI企服/跨境": 2, "自媒体/IP": 1, "AI企服/培训": 1, "AI企服/案例库": 1, "出海网站/内容": 1, "职业培训/AI": 1, "大健康/私域": 1, "AI自媒体": 1, "AI应用/自媒体": 1, "流量/AI代做": 1, "跨境电商": 1, "工厂出海/企服": 1, "自媒体/快钱": 1, "电商供应链": 1, "虚拟产品": 1, "小红书电商/POD": 1, "油管/视频号": 1, "跨境重启": 1, "短视频/CPS": 1, "投放/视频号": 1, "AI出海网站": 1, "社群角色": 1, "资源合作": 1}, "stageCounts": {"组织者": 1, "转型验证": 1, "MVP": 1, "获客验证": 1, "产品化": 1, "轻量试错": 1, "定价放大": 1, "渠道验证": 1, "流量再增长": 1, "冷启动": 1, "公开记录": 1, "选赛道": 1, "组织升级": 1, "标杆客户": 1, "现金流修复": 1, "规模延展": 1, "换品验证": 1, "爆品验证": 1, "SOP搭建": 1, "从零掌控": 1, "产品闭环": 1, "红利测试": 1, "流量优先": 1, "资源链接": 1, "信任验证": 1}, "priorityCounts": {"方法论": 2, "高": 14, "中": 9}, "builtAt": "2026-05-21 00:58:14"};
+const {config, pages, members, quotes, actions, groups, sectorCounts, stageCounts, priorityCounts} = DATA;
+const byRoute = Object.fromEntries(pages.map(page => [page.route, page]));
+const nav = document.getElementById('nav');
+const app = document.getElementById('app');
+const crumb = document.getElementById('crumb');
+const search = document.getElementById('search');
+const sidebar = document.getElementById('sidebar');
+const scrim = document.getElementById('scrim');
+const mobileMenu = document.getElementById('mobileMenu');
+
+mermaid.initialize({startOnLoad:false, theme:'dark', securityLevel:'loose'});
+marked.use({
+  renderer: {
+    link(href, title, text) {
+      const clean = String(href || '');
+      const label = text || clean;
+      if (clean.startsWith('#')) return `<a href="${clean}">${label}</a>`;
+      return `<a href="${clean}" target="_blank" rel="noreferrer">${label}</a>`;
+    }
+  }
+});
+
+function routeTitle(route){
+  return byRoute[route]?.title || route;
+}
+
+function pageLink(route, label){
+  return `<a href="#${route}">${label || routeTitle(route)}</a>`;
+}
+
+function normalizeWikiLinks(md){
+  return md.replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g, (_, route, label) => `[${label}](#${route.trim()})`)
+           .replace(/\[\[([^\]]+)\]\]/g, (_, route) => `[${routeTitle(route.trim())}](#${route.trim()})`);
+}
+
+function markdown(md){
+  const normalized = normalizeWikiLinks(md || '').replace(/([：:，,。；;）)])\*\*(?=\S)/g, '$1** ');
+  return marked.parse(normalized);
+}
+
+function pageGroup(page){
+  if (['guide','member','analysis','quotes','config','source','changelog'].includes(page.group)) return page.group;
+  if (page.group === 'member') return 'member';
+  if (page.group === 'analysis') return 'analysis';
+  if (page.group === 'quote') return 'quotes';
+  if (page.group === 'changelog') return 'changelog';
+  return 'guide';
+}
+
+function renderNav(filter=''){
+  const q = filter.trim().toLowerCase();
+  const visible = pages.filter(page => {
+    if (page.route === 'home-index') return true;
+    const hay = `${page.title} ${page.path} ${(page.tags||[]).join(' ')} ${page.body}`.toLowerCase();
+    return !q || hay.includes(q);
+  });
+  nav.innerHTML = groups.map(group => {
+    const items = visible.filter(page => pageGroup(page) === group.id);
+    if (!items.length) return '';
+    return `<section class="group"><h2 class="group-title">${group.label}</h2><div class="nav">${items.map(page =>
+      `<a href="#${page.route}" data-route="${page.route}"><span>${page.title}</span><span class="path">${page.path}</span></a>`
+    ).join('')}</div></section>`;
+  }).join('');
+  markActive();
+}
+
+function markActive(){
+  const route = location.hash.replace(/^#/, '') || 'home';
+  document.querySelectorAll('.nav a').forEach(a => a.classList.toggle('active', a.dataset.route === route));
+}
+
+function barChart(counter){
+  const entries = Object.entries(counter).sort((a,b)=>b[1]-a[1]);
+  const max = Math.max(...entries.map(([,v])=>v), 1);
+  return `<div class="bars">${entries.map(([label,value])=>`
+    <div class="bar-row"><div class="bar-label" title="${label}">${label}</div><div class="bar-track"><div class="bar-fill" style="width:${Math.max(8, value/max*100)}%"></div></div><div class="bar-num">${value}</div></div>
+  `).join('')}</div>`;
+}
+
+function homeMembersPreview(){
+  const top = members.filter(m => ['高','方法论'].includes(m.priority)).slice(0, 9);
+  return `<div class="member-grid">${top.map(memberCard).join('')}</div>`;
+}
+
+function memberCard(m){
+  return `<a class="member-card" href="#${m.slug}">
+    <div>
+      <h4>${m.name}</h4>
+      <div class="meta"><span class="pill">${m.sector}</span><span class="pill">${m.stage}</span><span class="pill">${m.priority}</span></div>
+    </div>
+    <p><strong>卡点：</strong>${m.bottleneck}</p>
+    <p><strong>下一步：</strong>${m.action}</p>
+  </a>`;
+}
+
+function renderHome(){
+  crumb.textContent = '会议洞察总览';
+  app.innerHTML = `
+    <section class="hero">
+      <div class="eyebrow">Founder Roundtable Wiki</div>
+      <h2>一场 4 小时 40 分钟的创业项目体检。</h2>
+      <p class="hero-lead">${config.subtitle} 这个站点把会议整理成可查阅、可筛选、可复盘、可截图传播的 Wiki：每个人的项目、卡点、建议、下一步都被放进同一张地图里。</p>
+      <div class="metric-grid">
+        <div class="metric"><strong>${config.duration}</strong><span>录音时长，从开场规则到资源合作答疑</span></div>
+        <div class="metric"><strong>${members.length}</strong><span>成员与公共答疑页面，覆盖项目发言人、主持人与社群角色</span></div>
+        <div class="metric"><strong>${Object.keys(sectorCounts).length}</strong><span>赛道标签，包含 AI 企服、跨境、自媒体、电商、短视频等</span></div>
+        <div class="metric"><strong>${actions.length}</strong><span>保留时间点的会议待办，可直接进入执行看板</span></div>
+      </div>
+    </section>
+    <section class="section">
+      <h3>先看四个结论</h3>
+      <div class="insight-grid">
+        <article class="insight"><h4>先问谁付钱</h4><p>30 秒讲不清楚项目，往往不是表达问题，而是还没想清楚客户、需求、成交和交付。</p></article>
+        <article class="insight"><h4>流量不是 IP 的敌人</h4><p>很多项目先做流量更实际。把真实需求讲透，把流量做起来，IP 会自然长出来。</p></article>
+        <article class="insight"><h4>AI 企服要有可视化证据</h4><p>课程、案例库、PPT、演示包和行业样板，都是让老板相信你能交付的证据。</p></article>
+        <article class="insight"><h4>短期现金流和长期事业分开看</h4><p>存款不足的人先做快钱和代做，拿正反馈；能扛半年的人才适合长期产品型探索。</p></article>
+      </div>
+    </section>
+    <section class="section visual-grid">
+      <div class="panel"><h4>赛道分布</h4>${barChart(sectorCounts)}</div>
+      <div class="panel"><h4>阶段分布</h4>${barChart(stageCounts)}</div>
+    </section>
+    <section class="section">
+      <h3>重点项目入口</h3>
+      <p class="section-intro">下面这些页面适合作为第一轮阅读入口。想查全员，请进入 ${pageLink('project-map','项目地图')}。</p>
+      ${homeMembersPreview()}
+    </section>
+    <section class="section">
+      <h3>传播页</h3>
+      <div class="quote-wall">${quotes.slice(0,3).map(quoteCard).join('')}</div>
+    </section>
+  `;
+}
+
+function quoteCard(q){
+  const text = q.text || q.quote || '';
+  const tag = q.tag || q.theme || '金句';
+  const context = q.context || q.note || '';
+  return `<article class="quote-card"><blockquote>${text}</blockquote><div><div class="tag">${tag}</div><p>${context}</p></div></article>`;
+}
+
+function renderProjectMap(){
+  return `<section class="section">
+    <h3>项目地图</h3>
+    <p class="section-intro">按成员、赛道、阶段、卡点、行动项筛选。它比纯会议纪要更适合复盘：你能迅速看到谁适合合作，谁需要流量，谁需要产品化，谁要先修现金流。</p>
+    <div class="member-tools">
+      <input id="memberFilter" placeholder="筛选成员、卡点、行动..." />
+      <select id="sectorFilter"><option value="">全部赛道</option>${Object.keys(sectorCounts).map(s=>`<option>${s}</option>`).join('')}</select>
+      <select id="stageFilter"><option value="">全部阶段</option>${Object.keys(stageCounts).map(s=>`<option>${s}</option>`).join('')}</select>
+    </div>
+    <div class="member-grid" id="memberGrid">${members.map(memberCard).join('')}</div>
+  </section>
+  <section class="section visual-grid">
+    <div class="panel"><h4>赛道密度</h4>${barChart(sectorCounts)}</div>
+    <div class="panel"><h4>优先级分布</h4>${barChart(priorityCounts)}</div>
+  </section>`;
+}
+
+function wireProjectMap(){
+  const q = document.getElementById('memberFilter');
+  const sector = document.getElementById('sectorFilter');
+  const stage = document.getElementById('stageFilter');
+  const grid = document.getElementById('memberGrid');
+  if (!q || !sector || !stage || !grid) return;
+  const refresh = () => {
+    const keyword = q.value.trim().toLowerCase();
+    const items = members.filter(m => {
+      const hay = `${m.name} ${m.title} ${m.sector} ${m.stage} ${m.bottleneck} ${m.action}`.toLowerCase();
+      return (!keyword || hay.includes(keyword)) && (!sector.value || m.sector === sector.value) && (!stage.value || m.stage === stage.value);
+    });
+    grid.innerHTML = items.length ? items.map(memberCard).join('') : '<div class="empty">没有匹配的成员。换一个关键词试试。</div>';
+  };
+  [q, sector, stage].forEach(el => el.addEventListener('input', refresh));
+}
+
+function renderActionDashboard(){
+  return `<section class="section">
+    <h3>执行仪表盘</h3>
+    <p class="section-intro">这里保留原会议待办的时间点和对象，再补一层“7 天内应该怎么动”的执行视角。</p>
+    <div class="action-board">${actions.map(action => `
+      <article class="action-card">
+        <time>${action.time}</time>
+        <h4>${action.title || action.owner}</h4>
+        <p><strong>${action.owner}</strong><br>${action.detail || action.action || ''}</p>
+      </article>
+    `).join('')}</div>
+  </section>
+  <section class="section">
+    <h3>7 天行动建议</h3>
+    <div class="member-grid">${members.filter(m => !['主持人','资源合作答疑'].includes(m.name)).slice(0,24).map(memberCard).join('')}</div>
+  </section>`;
+}
+
+function renderQuoteWall(){
+  return `<section class="section">
+    <h3>金句海报墙</h3>
+    <p class="section-intro">这些卡片按传播场景排版，大字号、短语义、适合截图分享。每张卡片背后都对应一类创业判断。</p>
+    <div class="quote-wall">${quotes.map(quoteCard).join('')}</div>
+  </section>`;
+}
+
+function renderConfig(){
+  return `<section class="section">
+    <h3>配置页</h3>
+    <p class="section-intro">本期是静态只读配置页。真实修改通过 <code>data/site.config.json</code>、<code>data/members.json</code>、<code>data/actions.json</code> 和 <code>data/quotes.json</code> 完成。</p>
+    <div class="config-grid">
+      <article class="config-card"><h4>站点配置</h4><pre>${escapeHtml(JSON.stringify(config, null, 2))}</pre></article>
+      <article class="config-card"><h4>模块开关</h4><pre>${escapeHtml(JSON.stringify(config.modules || {}, null, 2))}</pre></article>
+      <article class="config-card"><h4>成员分组</h4><pre>${escapeHtml(JSON.stringify(sectorCounts, null, 2))}</pre></article>
+      <article class="config-card"><h4>数据规模</h4><pre>${escapeHtml(JSON.stringify({pages:pages.length,members:members.length,quotes:quotes.length,actions:actions.length,builtAt:DATA.builtAt}, null, 2))}</pre></article>
+    </div>
+  </section>`;
+}
+
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
+}
+
+async function renderPage(route){
+  const page = byRoute[route];
+  if (!page) {
+    if (route === 'home') return renderHome();
+    app.innerHTML = '<div class="empty">页面不存在。</div>';
+    crumb.textContent = 'Not found';
+    return;
+  }
+  crumb.textContent = page.title;
+  let extra = '';
+  if (route === 'project-map') extra = renderProjectMap();
+  if (route === 'action-dashboard') extra = renderActionDashboard();
+  if (route === 'golden-quotes') extra = renderQuoteWall();
+  if (route === 'site-configuration') extra = renderConfig();
+  app.innerHTML = `<article class="article">${markdown(page.body)}</article>${extra}`;
+  wireProjectMap();
+  await renderMermaid();
+}
+
+async function renderMermaid(){
+  const blocks = [...document.querySelectorAll('code.language-mermaid')];
+  for (let i = 0; i < blocks.length; i++) {
+    const code = blocks[i];
+    const source = code.textContent;
+    const holder = document.createElement('div');
+    holder.className = 'mermaid';
+    holder.textContent = source;
+    code.closest('pre').replaceWith(holder);
+  }
+  if (document.querySelector('.mermaid')) {
+    await mermaid.run({querySelector:'.mermaid'});
+  }
+}
+
+function navigate(){
+  closeMenu();
+  const route = location.hash.replace(/^#/, '') || 'home';
+  markActive();
+  if (route === 'home') renderHome();
+  else renderPage(route);
+}
+
+function openMenu(){
+  sidebar.classList.add('open');
+  scrim.classList.add('open');
+}
+
+function closeMenu(){
+  sidebar.classList.remove('open');
+  scrim.classList.remove('open');
+}
+
+search.addEventListener('input', () => renderNav(search.value));
+mobileMenu.addEventListener('click', openMenu);
+scrim.addEventListener('click', closeMenu);
+window.addEventListener('hashchange', navigate);
+renderNav();
+navigate();
+</script>
+</body>
+</html>
