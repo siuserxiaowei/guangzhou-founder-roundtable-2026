@@ -1,72 +1,76 @@
 # 广州创业项目交流会 Wiki
 
 <!-- SIUSER-REPO-GUIDE:START -->
-## Repository Guide
+## 项目介绍 / Project Introduction
 
-### What This Repository Does
+### 中文
+广州 AI 创业者圆桌资料：整理 founder roundtable 会议内容、创业生态观察和增长讨论的静态页面。
 
-广州创业者圆桌：围绕 AI startup / founder roundtable / startup ecosystem 的项目。
+### English
+Guangzhou AI founder roundtable archive for startup ecosystem notes, product discussions, and growth observations.
 
-English summary: guangzhou-founder-roundtable-2026 for guangzhou-founder-roundtable-2026 for AI startup, founder roundtable, startup ecosystem.
+## 使用方式 / Usage
 
-### Online Entry Points
+### 中文
+1. 优先打开在线入口或本地静态服务查看最终页面。
+2. 内容型仓库通常从 `README.md`、`docs/`、`data/` 或 `content/` 开始阅读。
+3. 更新资料后，重新生成或刷新静态页面，并检查链接、图片和文字是否正常。
 
-- GitHub repository: https://github.com/siuserxiaowei/guangzhou-founder-roundtable-2026
-- Live / GitHub Pages: https://siuserxiaowei.github.io/guangzhou-founder-roundtable-2026/
-- Default branch: `main`
-- Primary language: `HTML`
+### English
+1. Start with the live link or a local static server to view the final page.
+2. For content repositories, begin with `README.md`, `docs/`, `data/`, or `content/`.
+3. After updating material, regenerate or refresh the static page and check links, images, and copy.
 
-### How To Read / Learn This Repository
+## 入口与元信息 / Entry Points & Metadata
 
-1. 先读本 README，确认项目目标、在线入口和本地运行方式。
-2. 打开上方 Live / GitHub Pages 链接，先从最终效果理解项目。
-3. 按仓库目录从入口文件、数据文件、脚本和文档依次阅读。
-4. 如果要修改内容，先小范围改动，再运行本 README 中的验证命令。
+- GitHub 仓库 / Repository: https://github.com/siuserxiaowei/guangzhou-founder-roundtable-2026
+- Live / 在线入口：https://siuserxiaowei.github.io/guangzhou-founder-roundtable-2026/
+- 默认分支 / Default branch: `main`
+- 主要语言 / Primary language: `HTML`
+- 可见性 / Visibility: `public`
+- 仓库类型 / Repository type: `source`
 
-### Clone This Repository
+## 本地运行 / Local Run
 
 ```bash
 git clone https://github.com/siuserxiaowei/guangzhou-founder-roundtable-2026.git
 cd guangzhou-founder-roundtable-2026
-```
-
-### Run Or View Locally
-
-```bash
 python3 -m http.server 8000
 ```
 
-然后打开 `http://127.0.0.1:8000/`。
+## 仓库结构 / Repository Map
 
-### Repository Map
+| 路径 / Path | 中文说明 | English |
+| --- | --- | --- |
+| `README.md` | 项目入口说明，先读这里。 | Main project entry point and orientation. |
+| `index.html` | 静态站首页或页面入口。 | Static-site homepage or entry page. |
+| `data` | 数据、索引或结构化内容。 | Data, indexes, or structured content. |
+| `analysis` | 项目文件或目录。 | Project file or directory. |
+| `changelog` | 项目文件或目录。 | Project file or directory. |
+| `guide` | 项目文件或目录。 | Project file or directory. |
+| `members` | 项目文件或目录。 | Project file or directory. |
+| `quotes` | 项目文件或目录。 | Project file or directory. |
+| `site` | 本地站点构建输出或站点源文件。 | Local site output or site source files. |
+| `.gitignore` | 项目文件或目录。 | Project file or directory. |
+| `index.md` | 项目文件或目录。 | Project file or directory. |
+| `SCHEMA.md` | 项目文件或目录。 | Project file or directory. |
 
-| Path | Purpose |
-| --- | --- |
-| `README.md` | 项目入口说明，先读这里。 |
-| `index.html` | 静态站首页或页面入口。 |
-| `data/` | 数据、索引或结构化内容。 |
-| `SCHEMA.md` | 项目文件。 |
-| `analysis/` | 项目目录。 |
-| `changelog/` | 项目目录。 |
-| `guide/` | 项目目录。 |
-| `index.md` | 项目文件。 |
-| `members/` | 项目目录。 |
-| `quotes/` | 项目目录。 |
-| `site/` | 项目目录。 |
+## 维护备注 / Maintenance Notes
 
-### Maintenance Notes
+- 中文：当项目目标、在线入口、运行命令或目录结构变化时，同步更新本说明。
+- English: Keep this guide updated when the project purpose, live link, run commands, or structure changes.
+- 中文：修改代码、数据或生成页面后，优先运行相关构建、测试或校验命令。
+- English: After changing code, data, or generated pages, run the relevant build, test, or validation command.
 
-- Keep this README in sync when the project purpose, live link, or run commands change.
-- Prefer small, focused commits when changing code, data, or generated pages.
-- Run the relevant build or validation command before publishing changes.
-- If this is a generated/static archive, update the source data first, then regenerate the public files.
+## 安全与隐私 / Safety & Privacy
 
-### Privacy And Safety
-
-- Do not commit API keys, tokens, passwords, cookies, private URLs, or internal account data.
-- Keep private source material out of public GitHub Pages output unless it has been explicitly cleared for publication.
-- When in doubt, run a quick secret scan such as `rg -n "token|secret|password|access_key|authorization"` before pushing.
+- 中文：不要提交 API key、token、密码、cookie、私有链接或内部账号资料。
+- English: Do not commit API keys, tokens, passwords, cookies, private URLs, or internal account data.
+- 中文：公开 GitHub Pages 前，确认资料已脱敏并允许公开。
+- English: Before publishing GitHub Pages output, confirm the material is redacted and cleared for public release.
 <!-- SIUSER-REPO-GUIDE:END -->
+
+
 
 <!-- SIUSER-SEO-INTRO:START -->
 
